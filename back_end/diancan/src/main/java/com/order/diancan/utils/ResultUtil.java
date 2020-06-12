@@ -1,4 +1,4 @@
-package utils;
+package com.order.diancan.utils;
 
 public class ResultUtil {
     /**

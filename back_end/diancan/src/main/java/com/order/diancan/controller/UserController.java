@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import utils.Msg;
-import utils.ResultUtil;
+import com.order.diancan.utils.Msg;
+import com.order.diancan.utils.ResultUtil;
 
 @RestController
 @RequestMapping("/user")
