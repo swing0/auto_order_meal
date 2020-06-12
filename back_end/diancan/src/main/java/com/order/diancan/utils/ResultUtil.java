@@ -23,10 +23,10 @@ public class ResultUtil {
     public static Msg registerSuccess(){
         return success("用户注册成功");
     }
-    public static Msg loginSuccess(User user){
+    public static String loginSuccess(User user){
         user.setPassword("");
         String json = JSON.toJSONString(user);
-        return success(json);
+        return json;
     }
     public static Msg error(Integer code,String resultmsg){
         Msg msg = new Msg();

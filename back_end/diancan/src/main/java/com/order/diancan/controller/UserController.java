@@ -33,7 +33,7 @@ public class UserController {
 
     //登录
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Msg login(@RequestBody User user){
+    public Object login(@RequestBody User user){
         try {
             User userResult = userMapper.select(user.getAccount());
             if (userResult == null){
