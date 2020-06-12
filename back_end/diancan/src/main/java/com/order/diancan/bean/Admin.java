@@ -2,17 +2,11 @@ package com.order.diancan.bean;
 
 import java.io.Serializable;
 
-
-public class User implements Serializable {
-
-
+public class Admin implements Serializable {
     private long id;
-    private String nickname;
     private String account;
     private String password;
-    private long phone;
-    private String address;
-
+    private long restaurant_id;
 
     public long getId() {
         return id;
@@ -20,14 +14,6 @@ public class User implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getAccount() {
@@ -46,19 +32,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public long getPhone() {
-        return phone;
+    public long getRestaurant_id() {
+        return restaurant_id;
     }
 
-    public void setPhone(long phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setRestaurant_id(long restaurant_id) {
+        this.restaurant_id = restaurant_id;
     }
 }

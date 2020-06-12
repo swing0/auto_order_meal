@@ -26,9 +26,9 @@ public class UserController {
         } catch (DuplicateKeyException e){
             return ResultUtil.error(201,"该用户已注册");
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常");
+            return ResultUtil.error(400,"出现异常，用户注册失败");
         }
-        return ResultUtil.success();
+        return ResultUtil.registerSuccess();
     }
 
     //登录
@@ -39,12 +39,12 @@ public class UserController {
             if (userResult == null){
                 return ResultUtil.error(202,"该用户没有注册");
             }else if (userResult.getPassword().equals(user.getPassword())){
-                return ResultUtil.success();
+                return ResultUtil.loginSuccess(userResult);
             }else {
                 return ResultUtil.error(203,"密码错误");
             }
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常");
+            return ResultUtil.error(400,"出现异常，用户登录失败");
         }
     }
 
