@@ -2,6 +2,7 @@ package com.order.diancan.controller;
 
 import com.order.diancan.bean.User;
 import com.order.diancan.mapper.UserMapper;
+import com.order.diancan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,30 +17,30 @@ import com.order.diancan.utils.ResultUtil;
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
-    //注册
+    //注册用户
     @RequestMapping(value = "register",method = RequestMethod.POST)
     public Msg register(@RequestBody User user){
         try {
-            userMapper.insert(user.getNickname(),user.getAccount(),user.getPassword(),user.getPhone(),user.getAddress());
+            userService.insertUser(user);
         } catch (DuplicateKeyException e){
-            return ResultUtil.error(201,"该用户已注册");
+            return ResultUtil.error(201,"用户名已存在");
         } catch (Exception e) {
             return ResultUtil.error(400,"出现异常，用户注册失败");
         }
         return ResultUtil.registerSuccess();
     }
 
-    //登录
+    //用户根据account登录
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public Object login(@RequestBody User user){
         try {
-            User userResult = userMapper.select(user.getAccount());
+            User userResult = userService.selectUserByAccount(user);
             if (userResult == null){
                 return ResultUtil.error(202,"该用户没有注册");
             }else if (userResult.getPassword().equals(user.getPassword())){
-                return ResultUtil.loginSuccess(userResult);
+                return ResultUtil.userLoginSuccess(userResult);
             }else {
                 return ResultUtil.error(203,"密码错误");
             }

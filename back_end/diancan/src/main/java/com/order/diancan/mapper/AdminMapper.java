@@ -16,6 +16,6 @@ public interface AdminMapper {
     );
 
     //select登录用
-    @Select("SELECT * FROM customer WHERE account=#{account}")
+    @Select("SELECT * FROM admin WHERE account=#{account}")
     Admin select(@Param("account") String account);
 }

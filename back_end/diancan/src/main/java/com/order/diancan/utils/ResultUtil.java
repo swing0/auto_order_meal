@@ -1,6 +1,7 @@
 package com.order.diancan.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.order.diancan.bean.Admin;
 import com.order.diancan.bean.User;
 
 public class ResultUtil {
@@ -21,11 +22,16 @@ public class ResultUtil {
         return success(null);
     }
     public static Msg registerSuccess(){
-        return success("用户注册成功");
+        return success("注册成功");
     }
-    public static String loginSuccess(User user){
+    public static String userLoginSuccess(User user){
         user.setPassword("");
         String json = JSON.toJSONString(user);
+        return json;
+    }
+    public static String adminLoginSuccess(Admin admin){
+        admin.setPassword("");
+        String json = JSON.toJSONString(admin);
         return json;
     }
     public static Msg error(Integer code,String resultmsg){
