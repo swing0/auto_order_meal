@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 public interface AdminMapper {
     //insert注册用
     @Insert("INSERT INTO admin(account,password,restaurant_id) VALUE (#{account},#{password},#{restaurant_id})")
-    int insert(@Param("account") String account,
+    void insert(@Param("account") String account,
                @Param("password") String password,
                @Param("restaurant_id") long restaurant_id
     );

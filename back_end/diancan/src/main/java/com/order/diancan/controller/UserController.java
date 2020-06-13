@@ -25,7 +25,7 @@ public class UserController {
         try {
             userService.insertUser(user);
         } catch (DuplicateKeyException e){
-            return ResultUtil.error(201,"用户名已存在");
+            return ResultUtil.error(201,"用户名已存在或电话号码已被注册");
         } catch (Exception e) {
             return ResultUtil.error(400,"出现异常，用户注册失败");
         }

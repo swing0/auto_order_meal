@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
     //insert注册用
     @Insert("INSERT INTO customer(nickname,account,password,phone,address) VALUE (#{nickname},#{account},#{password},#{phone},#{address})")
-    int insert(@Param("nickname") String nickname,
+    void insert(@Param("nickname") String nickname,
                @Param("account") String account,
                @Param("password") String password,
                @Param("phone") long phone,

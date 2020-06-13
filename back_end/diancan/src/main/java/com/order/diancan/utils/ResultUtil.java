@@ -24,6 +24,9 @@ public class ResultUtil {
     public static Msg registerSuccess(){
         return success("注册成功");
     }
+    public static int registerRestaurantSuccess(int id) {
+        return id;
+    }
     public static String userLoginSuccess(User user){
         user.setPassword("");
         String json = JSON.toJSONString(user);
@@ -40,4 +43,5 @@ public class ResultUtil {
         msg.setMsg(resultmsg);
         return msg;
     }
+
 }

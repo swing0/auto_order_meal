@@ -1,8 +1,6 @@
 package com.order.diancan.controller;
 
 import com.order.diancan.bean.Admin;
-import com.order.diancan.bean.User;
-import com.order.diancan.mapper.AdminMapper;
 import com.order.diancan.service.AdminService;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
