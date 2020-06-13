@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="post请求" class="post">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector(".get").onclick=function(){
+            axios.post("/user/test")
+            .then(function(response){
+                console.log(response);
+            })
+            // axios.get("/user/test").then((res)=>{
+            //     res=res.data
+            //     if(res.errno===ERR_OK){
+            //         this.themeList=res.data;
+            //     }
+            // }).catch((error)=>{
+            //     console.warn(error)
+            // })
+        }
+    </script>
+</body>
+</html>
