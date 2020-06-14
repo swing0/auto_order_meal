@@ -48,7 +48,6 @@ public class UserController {
 
     //测试
     @RequestMapping("/test")
-    @CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
     public String hello(){
         return "hello";
     }
