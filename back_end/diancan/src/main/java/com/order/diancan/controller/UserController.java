@@ -5,10 +5,7 @@ import com.order.diancan.mapper.UserMapper;
 import com.order.diancan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
 
@@ -51,6 +48,7 @@ public class UserController {
 
     //测试
     @RequestMapping("/test")
+    @CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
     public String hello(){
         return "hello";
     }
