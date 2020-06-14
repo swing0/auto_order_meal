@@ -1,5 +1,6 @@
 package com.order.diancan.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.order.diancan.bean.Restaurant;
 import com.order.diancan.service.RestaurantService;
 import com.order.diancan.utils.Msg;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/restaurant")
@@ -29,5 +32,13 @@ public class RestaurantController {
         } catch (Exception e) {
             return ResultUtil.error(400,"出现异常，餐厅注册失败");
         }
+    }
+
+    //返回所有的餐厅信息
+    @RequestMapping(value = "info",method = RequestMethod.GET)
+    public String allInfo(){
+        String json = JSON.toJSONString(restaurantService.allRestaurant());
+        System.out.println(json);
+        return json;
     }
 }

@@ -10,7 +10,7 @@ public class User implements Serializable {
     private String nickname;
     private String account;
     private String password;
-    private long phone;
+    private String phone;
     private String address;
 
 
@@ -46,11 +46,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
