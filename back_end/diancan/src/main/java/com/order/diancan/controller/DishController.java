@@ -12,15 +12,10 @@ public class DishController {
     private DishService dishService;
 
     //根据饭店id查询其所有菜品
-    @RequestMapping(value = "{restaurant_id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurant_id/{restaurant_id}",method = RequestMethod.GET)
     public String allDish(@PathVariable("restaurant_id") int restaurant_id){
         String json = JSON.toJSONString(dishService.dishesFromRestaurant(restaurant_id));
         return json;
     }
 
-    //测试
-    @RequestMapping("/test")
-    public String hello(){
-        return "hello";
-    }
 }
