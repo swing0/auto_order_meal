@@ -35,10 +35,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     public void Init(){
         username=(EditText)findViewById(R.id.username);
-        Intent m=getIntent();
+        /*Intent m=getIntent();
         String data=m.getStringExtra("account");
-        username.setText(data);
+        username.setText(data);*/
         et_password=(EditText)findViewById(R.id.password);
+        username.setText("111");
+        et_password.setText("111");
         m_login=(Button)findViewById(R.id.login);
         go_register=(TextView)findViewById(R.id.go_register);
         forget_password=(TextView)findViewById(R.id.forget_password);
