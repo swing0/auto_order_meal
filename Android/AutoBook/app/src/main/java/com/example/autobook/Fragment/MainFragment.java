@@ -4,64 +4,140 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.example.autobook.Adapter.ResAdapter;
+import com.example.autobook.Bean.Restaurant;
+import com.example.autobook.OkhttpManager;
 import com.example.autobook.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.squareup.okhttp.internal.framed.ErrorCode;
+import com.squareup.okhttp.internal.framed.FrameReader;
+import com.squareup.okhttp.internal.framed.Header;
+import com.squareup.okhttp.internal.framed.HeadersMode;
+import com.squareup.okhttp.internal.framed.Settings;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import okio.BufferedSource;
+import okio.ByteString;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ListView listView;
+    private FloatingActionButton select;
+    final static String url="http://192.168.0.104:8080/restaurant/info";
+    public List<Restaurant> restaurantList=new ArrayList<>();
+    //String data=null;
+    private OkHttpClient client=new OkHttpClient();
+    //private Handler handler;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public MainFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MainFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_main, container, false);
+
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView();//初始化控件
+        initOrder();//数据源
+        //Log.d("data",data);
+        //initlist();//初始化数据list
+
+        listView.setAdapter(new ResAdapter(getContext(),restaurantList));
+    }
+
+    //初始化控件
+    public void initView(){
+        listView=getActivity().findViewById(R.id.resturant);
+        select=getActivity().findViewById(R.id.floatButton);
+        select.setOnClickListener(this);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+    }
+    //数据源
+    public void initOrder(){
+        new Thread(){
+            @Override
+            public void run(){
+                Request request = new Request.Builder().url(url).build();
+                //发送请求
+                try {
+                    final Response response = client.newCall(request).execute();
+                    //打印服务端传回的数据
+                    //Log.d("data",response.body().string());
+                    Message msg=new Message();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("DATA",response.body().string());
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+     public Handler handler=new Handler(){
+         @Override
+         public void handleMessage(Message msg) {
+             super.handleMessage(msg);
+             Bundle m=msg.getData();
+             Log.d("DATA",m.getString("DATA"));
+             //data=m.getString("DATA");
+             initlist(m.getString("DATA"));
+         }
+     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.floatButton:
+                Toast.makeText(getContext(),"YES",Toast.LENGTH_SHORT).show();
+                break;
         }
     }
+    public void initlist(String data){
+        JSONArray array=(JSONArray) JSONArray.parse(data);
+        for(int mark=0;mark<array.size();mark++){
+            JSONObject res =array.getJSONObject(mark);
+            Restaurant restaurant=new Restaurant(Integer.parseInt(res.getString("id")),res.getString("name"),res.getString("classification"),
+                    res.getString("phone"),Float.parseFloat(res.getString("total_score")),Float.parseFloat(res.getString("scoring_times")),res.getString("address"));
+            restaurantList.add(restaurant);
+        }
+        //按照平均评分排序
+        Collections.sort(restaurantList, new Comparator<Restaurant>() {
+            @Override
+            public int compare(Restaurant restaurant, Restaurant t1) {
+                return t1.getAva().compareTo(restaurant.getAva());
+            }
+        });
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
     }
+
 }
