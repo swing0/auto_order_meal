@@ -23,9 +23,14 @@ public class RestaurantService {
         return restaurant.getId();
     }
 
-    //返回所有的餐厅信息
+    //返回所有的饭店信息
     public List<Restaurant> allRestaurant(){
         return restaurantMapper.selectAllInfo();
+    }
+
+    //返回所有的饭店id
+    public int[] allRestaurantID(){
+        return restaurantMapper.selectAllId();
     }
 
 }

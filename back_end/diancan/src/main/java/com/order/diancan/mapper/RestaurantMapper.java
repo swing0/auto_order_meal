@@ -26,4 +26,8 @@ public interface RestaurantMapper {
     //查询所有的饭店信息
     @Select("SELECT * FROM restaurant")
     List<Restaurant> selectAllInfo();
+
+    //查找所有的饭店id
+    @Select("SELECT id FROM restaurant")
+    int[] selectAllId();
 }

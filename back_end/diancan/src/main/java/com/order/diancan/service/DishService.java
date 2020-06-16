@@ -17,4 +17,11 @@ public class DishService {
     public List<Dish> dishesFromRestaurant(int restaurant_id){
         return dishMapper.selectDishFromRestaurant(restaurant_id);
     }
+
+    //根据菜品id查询其信息
+    public List<Dish> dishesFromId(int id){
+        return dishMapper.selectDishFromId(id);
+    }
+
+
 }
