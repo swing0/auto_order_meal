@@ -27,15 +27,14 @@ public class DishController {
 
     //根据价格查找所有饭店的推荐
     @RequestMapping(value = "/{restaurant_id}/{price}",method = RequestMethod.GET)
-    public StringBuilder selectBestDishes(@PathVariable int restaurant_id, @PathVariable("price") long price ){
+    public String selectBestDishes(@PathVariable int restaurant_id, @PathVariable("price") long price ){
         StringBuilder json = new StringBuilder();
-
 
         List<Integer> ids = selectFromRestaurant(price,restaurant_id);
         for (int i = 0; i < ids.size(); i++) {
             json.append(JSON.toJSONString(dishService.dishesFromId(ids.get(i))));
         }
-        return json;
+        return json.toString().replace("][",",");
     }
 
     //查找特定饭店的特定价格推荐
