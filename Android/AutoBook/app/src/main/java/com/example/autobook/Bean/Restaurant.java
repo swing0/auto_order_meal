@@ -1,6 +1,11 @@
 package com.example.autobook.Bean;
 
-public class Restaurant implements Comparable{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Restaurant implements Comparable, Serializable {
     private int id;
     private String name;
     private String classification;
@@ -89,5 +94,8 @@ public class Restaurant implements Comparable{
     @Override
     public int compareTo(Object o) {
         return this.ava.compareTo(((Restaurant)o).getAva());
+    }
+
+    public Restaurant() {
     }
 }

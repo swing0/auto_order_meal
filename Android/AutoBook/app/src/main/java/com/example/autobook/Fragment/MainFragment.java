@@ -1,5 +1,8 @@
 package com.example.autobook.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,28 +19,20 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.autobook.Activity.ResturantActivity;
 import com.example.autobook.Adapter.ResAdapter;
 import com.example.autobook.Bean.Restaurant;
-import com.example.autobook.OkhttpManager;
 import com.example.autobook.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.squareup.okhttp.internal.framed.ErrorCode;
-import com.squareup.okhttp.internal.framed.FrameReader;
-import com.squareup.okhttp.internal.framed.Header;
-import com.squareup.okhttp.internal.framed.HeadersMode;
-import com.squareup.okhttp.internal.framed.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import okio.BufferedSource;
-import okio.ByteString;
 
 
 public class MainFragment extends Fragment implements View.OnClickListener {
@@ -49,8 +44,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     //String data=null;
     private OkHttpClient client=new OkHttpClient();
     //private Handler handler;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +59,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         //Log.d("data",data);
         //initlist();//初始化数据list
 
-        listView.setAdapter(new ResAdapter(getContext(),restaurantList));
+        listView.setAdapter(new ResAdapter(getActivity(),restaurantList));
     }
 
     //初始化控件
@@ -77,7 +70,16 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Context context=getActivity().getApplicationContext();
+                Intent intent=new Intent(context, ResturantActivity.class);
+                Restaurant clickSelect=restaurantList.get(i);
+                Log.d("name",clickSelect.getName());
+                int id=clickSelect.getId();
+                Bundle bundle=new Bundle();
+                bundle.putInt("Rest_id",id);
+                bundle.putSerializable("Restaurant",clickSelect);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
