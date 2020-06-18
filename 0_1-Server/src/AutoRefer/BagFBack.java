@@ -101,6 +101,20 @@ public class BagFBack {
         }**/
         return bound;
     }
+
+    public List<Integer> solve(BagFBack bagFBack){
+        List<Integer> data=new ArrayList<>();
+        bagFBack.traceBack(0);
+        for(int k=0;k<(bagFBack.getMyelements()).length;k++){
+            if((bagFBack.getMyelements())[k].isTake()){
+                data.add((bagFBack.getMyelements())[k].getId());
+            }
+        }
+        return data;
+    }
+
+
+
     public static void main(String[] args) {
         //测试菜品的id
         int[] id={1,2,3,4,5,6,7,8};
@@ -110,20 +124,30 @@ public class BagFBack {
         float[] score = {10f,3.8f,6.2f,7.7f,4.8f,4.5f, 3f, 2.5f };
         //顾客可接受的最大花费
         float max_price =  13.6f;
-        //创建类实例，初始化
+
+        /*
+        调用方法一
         BagFBack bagFBack = new BagFBack(id,price, score, max_price);
-        // 从第0层开始回溯，找方案
+        bagFBack.solve(bagFBack);
+        for(int k=0;k<bagFBack.solve(bagFBack).size();k++){
+            System.out.println(bagFBack.solve(bagFBack).get(k));
+        }
+        */
+
+
+        /*
+        调用方法二
+        BagFBack bagFBack = new BagFBack(id,price, score, max_price);
+        从第0层开始回溯，找方案
         bagFBack.traceBack(0);
-        /***至此回溯法结束***/
-
-
-        /**服务器拿到推荐的菜品ID方法可以如下：
+        服务器拿到推荐的菜品ID方法可以如下：
         List<Integer> data=new ArrayList<>();
         for(int k=0;k<(bagFBack.getMyelements()).length;k++){
             if((bagFBack.getMyelements())[k].isTake()){
                 data.add((bagFBack.getMyelements())[k].getId());
             }
-        }**/
+        }
+        */
 
     }
 
