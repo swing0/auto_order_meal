@@ -1,15 +1,16 @@
 package com.order.diancan.bean;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Order implements Serializable {
     private Long id;
     private Long price;
-    private Date date;
+    private Timestamp date;
     private Integer state;
     private Long restaurant_id;
-    private Long dish_id;
+    private String dish_id_list;
     private Long customer_id;
 
     public Long getId() {
@@ -28,12 +29,12 @@ public class Order implements Serializable {
         this.price = price;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = (Timestamp) date;
     }
 
     public Integer getState() {
@@ -52,12 +53,12 @@ public class Order implements Serializable {
         this.restaurant_id = restaurant_id;
     }
 
-    public Long getDish_id() {
-        return dish_id;
+    public String getDish_id_list() {
+        return dish_id_list;
     }
 
-    public void setDish_id(Long dish_id) {
-        this.dish_id = dish_id;
+    public void setDish_id_list(String dish_id_list) {
+        this.dish_id_list = dish_id_list;
     }
 
     public Long getCustomer_id() {

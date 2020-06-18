@@ -24,6 +24,7 @@ public class ResultUtil {
     public static Msg registerSuccess(){
         return success("注册成功");
     }
+    public static Msg registerOrderSuccess(){return success("订单添加成功");}
     public static int registerRestaurantSuccess(int id) {
         return id;
     }
