@@ -38,7 +38,6 @@ public class RestaurantController {
     @RequestMapping(value = "info",method = RequestMethod.GET)
     public String allInfo(){
         String json = JSON.toJSONString(restaurantService.allRestaurant());
-        System.out.println(json);
         return json;
     }
 }

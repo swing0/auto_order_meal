@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.order.diancan.AutoRefer.BagFBack;
 import com.order.diancan.bean.Dish;
 import com.order.diancan.service.DishService;
+import com.order.diancan.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,18 @@ public class DishController {
 
     //根据价格查找所有饭店的推荐
     @RequestMapping(value = "/{restaurant_id}/{price}",method = RequestMethod.GET)
-    public String selectBestDishes(@PathVariable int restaurant_id, @PathVariable("price") long price ){
+    public Object selectBestDishes(@PathVariable int restaurant_id, @PathVariable("price") long price ){
         StringBuilder json = new StringBuilder();
 
         List<Integer> ids = selectFromRestaurant(price,restaurant_id);
         for (int i = 0; i < ids.size(); i++) {
             json.append(JSON.toJSONString(dishService.dishesFromId(ids.get(i))));
         }
-        return json.toString().replace("][",",");
+        if (json.toString().equals("")){
+            return ResultUtil.error(204,"未能找到推荐菜单");
+        }else {
+            return json.toString().replace("][",",");
+        }
     }
 
     //查找特定饭店的特定价格推荐
