@@ -38,7 +38,7 @@ public class DishController {
         if (json.toString().equals("")){
             return ResultUtil.error(204,"未能找到推荐菜单");
         }else {
-            return json.toString().replace("][",",");
+            return ResultUtil.success(json.toString().replace("][",","));
         }
     }
 

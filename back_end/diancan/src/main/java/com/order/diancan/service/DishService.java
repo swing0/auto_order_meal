@@ -23,5 +23,7 @@ public class DishService {
         return dishMapper.selectDishFromId(id);
     }
 
+    //添加菜品
+
 
 }
