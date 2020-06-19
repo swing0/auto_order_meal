@@ -1,14 +1,12 @@
 package com.order.diancan.controller;
 
 import com.order.diancan.bean.Order;
+import com.order.diancan.bean.OrderState;
 import com.order.diancan.service.OrderService;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -32,5 +30,16 @@ public class OrderController {
             return ResultUtil.error(400,"未知错误，订单添加失败");
         }
         return ResultUtil.registerOrderSuccess();
+    }
+
+    //更改订单状态
+    @RequestMapping(value = "updateState",method = RequestMethod.POST)
+    public Msg updateState(@RequestBody OrderState orderState){
+        try {
+            orderService.updateOrderState(orderState.getId(),orderState.getState());
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误,订单修改失败");
+        }
+        return ResultUtil.success("订单状态修改成功");
     }
 }

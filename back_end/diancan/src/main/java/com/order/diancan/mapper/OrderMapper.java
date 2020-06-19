@@ -3,9 +3,9 @@ package com.order.diancan.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Mapper
 public interface OrderMapper {
@@ -19,4 +19,7 @@ public interface OrderMapper {
                 @Param("customer_id") long customer_id
                 );
 
+    //改变订单状态
+    @Update("UPDATE order_list SET state = #{state} WHERE id = #{id}")
+    void updateState(@Param("id") long id,@Param("state") int state);
 }
