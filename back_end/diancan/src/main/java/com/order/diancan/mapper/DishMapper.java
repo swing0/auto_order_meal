@@ -25,7 +25,7 @@ public interface DishMapper {
                 @Param("image") String image,
                 @Param("classification") String classification,
                 @Param("cuisine") String cuisine,
-                @Param("sales_volume") Long sales_volume,
+                @Param("sales_volume") String sales_volume,
                 @Param("price") Long price,
                 @Param("scoring_times") Long scoring_times,
                 @Param("total_score") Long total_score,

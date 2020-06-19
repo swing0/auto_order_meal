@@ -24,6 +24,17 @@ public class DishService {
     }
 
     //添加菜品
+    public void addDish(Dish dish){ dishMapper.insert(
+            dish.getName(),
+            dish.getImage(),
+            dish.getClassification(),
+            dish.getCuisine(),
+            dish.getSales_volume(),
+            dish.getPrice(),
+            dish.getScoring_times(),
+            dish.getTotal_score(),
+            dish.getRestaurant_id()
+    );}
 
 
 }
