@@ -7,7 +7,7 @@ import java.util.Date;
 public class Order implements Serializable {
     private Long id;
     private Long price;
-    private Timestamp date;
+    private String date;
     private Integer state;
     private Long restaurant_id;
     private String dish_id_list;
@@ -29,12 +29,12 @@ public class Order implements Serializable {
         this.price = price;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = (Timestamp) date;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Integer getState() {

@@ -18,6 +18,10 @@ public interface DishMapper {
     @Select("SELECT * FROM dish WHERE id=#{id}")
     List<Dish> selectDishFromId(int id);
 
+    //根据菜品id返回菜品对象
+    @Select("SELECT * FROM dish WHERE id = #{id}")
+    Dish selectDishById(long id);
+
     //添加菜品
     @Insert("INSERT INTO dish(name,image,classification,cuisine,sales_volume,price,scoring_times,total_score,restaurant_id) " +
             "VALUE (#{name},#{image},#{classification},#{cuisine},#{sales_volume},#{price},#{scoring_times},#{total_score},#{restaurant_id})")

@@ -23,6 +23,9 @@ public class DishService {
         return dishMapper.selectDishFromId(id);
     }
 
+    //根据菜品id返回菜品对象
+    public Dish dishById(long id){return dishMapper.selectDishById(id);}
+
     //添加菜品
     public void addDish(Dish dish){ dishMapper.insert(
             dish.getName(),

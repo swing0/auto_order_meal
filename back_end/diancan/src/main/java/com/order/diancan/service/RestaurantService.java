@@ -33,4 +33,9 @@ public class RestaurantService {
         return restaurantMapper.selectAllId();
     }
 
+    //根据饭店id返回饭店对象
+    public Restaurant restaurantById(long restaurant){
+        return restaurantMapper.selectById(restaurant);
+    }
+
 }

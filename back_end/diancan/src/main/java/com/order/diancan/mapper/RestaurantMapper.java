@@ -30,4 +30,8 @@ public interface RestaurantMapper {
     //查找所有的饭店id
     @Select("SELECT id FROM restaurant")
     int[] selectAllId();
+
+    //根据饭店id返回饭店对象
+    @Select("SELECT * FROM restaurant WHERE id = #{id}")
+    Restaurant selectById(long id);
 }
