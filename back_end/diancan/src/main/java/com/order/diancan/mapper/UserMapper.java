@@ -13,7 +13,7 @@ public interface UserMapper {
     void insert(@Param("nickname") String nickname,
                @Param("account") String account,
                @Param("password") String password,
-               @Param("phone") long phone,
+               @Param("phone") String phone,
                @Param("address") String address
                );
 

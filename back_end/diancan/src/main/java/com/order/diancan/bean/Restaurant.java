@@ -6,7 +6,7 @@ public class Restaurant implements Serializable {
     private int id;
     private String name;
     private String address;
-    private long phone;
+    private String phone;
     private String classification;
     private long scoring_times;
     private long total_score;
@@ -35,11 +35,11 @@ public class Restaurant implements Serializable {
         this.address = address;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

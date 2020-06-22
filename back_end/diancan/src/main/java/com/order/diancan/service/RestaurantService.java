@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,8 +20,22 @@ public class RestaurantService {
         restaurantMapper.insert(restaurant.getName(),restaurant.getAddress(),restaurant.getPhone(),restaurant.getClassification(),restaurant.getScoring_times(),restaurant.getTotal_score());
         //根据手机号查找刚插入的饭店的id
         restaurant.setId(restaurantMapper.selectIdFromPhone(restaurant.getPhone()));
-        System.out.println(restaurant.getId());
         return restaurant.getId();
+    }
+
+    //返回所有的饭店信息
+    public List<Restaurant> allRestaurant(){
+        return restaurantMapper.selectAllInfo();
+    }
+
+    //返回所有的饭店id
+    public int[] allRestaurantID(){
+        return restaurantMapper.selectAllId();
+    }
+
+    //根据饭店id返回饭店对象
+    public Restaurant restaurantById(long restaurant){
+        return restaurantMapper.selectById(restaurant);
     }
 
 }
