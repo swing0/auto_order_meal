@@ -1,7 +1,5 @@
 package com.order.diancan.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.order.diancan.bean.Order;
 import com.order.diancan.bean.OrderState;
 import com.order.diancan.service.OrderService;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.Date;
 
 @RestController
