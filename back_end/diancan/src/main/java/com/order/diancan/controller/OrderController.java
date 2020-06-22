@@ -1,6 +1,7 @@
 package com.order.diancan.controller;
 
 import com.order.diancan.bean.Order;
+import com.order.diancan.bean.OrderDetails;
 import com.order.diancan.bean.OrderState;
 import com.order.diancan.service.OrderService;
 import com.order.diancan.utils.Msg;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -47,10 +49,9 @@ public class OrderController {
     @RequestMapping(value = "state",method = RequestMethod.POST)
     public Msg listState(@RequestBody OrderState orderState){
         try {
-            String msg = orderService.restaurantAndDishes(orderState.getId(),orderState.getState());
-            return ResultUtil.success(msg);
+            List<OrderDetails> orderDetailsList = orderService.restaurantAndDishes(orderState.getId(),orderState.getState());
+            return ResultUtil.success(orderDetailsList);
         } catch (Exception e) {
-            System.out.println(e);
             return ResultUtil.error(400,"未知错误，返回信息失败");
         }
     }
