@@ -50,7 +50,11 @@ public class OrderController {
     public Msg listState(@RequestBody OrderState orderState){
         try {
             List<OrderDetails> orderDetailsList = orderService.restaurantAndDishes(orderState.getId(),orderState.getState());
-            return ResultUtil.success(orderDetailsList);
+            if (orderDetailsList.isEmpty()){
+                return ResultUtil.error(204,"数据不存在");
+            }else {
+                return ResultUtil.success(orderDetailsList);
+            }
         } catch (Exception e) {
             return ResultUtil.error(400,"未知错误，返回信息失败");
         }
