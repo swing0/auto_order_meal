@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     //insert注册用
@@ -20,4 +22,8 @@ public interface UserMapper {
     //select登录用
     @Select("SELECT * FROM customer WHERE account=#{account}")
     User select(@Param("account") String account);
+
+    //查询所有用户
+    @Select("SELECT * FROM customer")
+    List<User> selectAll();
 }

@@ -25,4 +25,8 @@ public interface OrderMapper {
     //查找用户的特定状态订单,可能有多个
     @Select("SELECT * FROM order_list WHERE customer_id = #{customer_id} AND state = #{state}")
     List<Order> orderFromCustomerAndState(@Param("customer_id") long customer_id, @Param("state") int state);
+
+    //查询订单
+    @Select("SELECT * FROM order_list")
+    List<Order> allOrder();
 }
