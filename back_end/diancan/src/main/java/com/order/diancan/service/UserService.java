@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -22,6 +23,9 @@ public class UserService {
     public User selectUserByAccount(User user){
         return userMapper.select(user.getAccount());
     }
+
+    //查询所有用户
+    public List<User> selectAllUser(){return userMapper.selectAll();}
 
 
 }

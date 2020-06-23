@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -43,6 +45,17 @@ public class UserController {
             }
         } catch (Exception e) {
             return ResultUtil.error(400,"出现异常，用户登录失败");
+        }
+    }
+
+    //查询所有用户
+    @RequestMapping(value = "allUser",method = RequestMethod.GET)
+    public Msg allUser(){
+        try {
+            List<User> userList = userService.selectAllUser();
+            return ResultUtil.success(userList);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误,用户查询失败");
         }
     }
 

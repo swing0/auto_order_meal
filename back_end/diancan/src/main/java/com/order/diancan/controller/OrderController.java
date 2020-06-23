@@ -59,4 +59,16 @@ public class OrderController {
             return ResultUtil.error(400,"未知错误，返回信息失败");
         }
     }
+
+    //查询所有订单
+    @RequestMapping(value = "allOrder",method = RequestMethod.GET)
+    public Msg allOrder(){
+        try {
+            List<Order> orderList = orderService.allOrder();
+            return ResultUtil.success(orderList);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误,订单查询失败");
+        }
+
+    }
 }

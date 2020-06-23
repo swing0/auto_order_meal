@@ -66,4 +66,9 @@ public class OrderService {
         return orderDetailsList;
     }
 
+    //查询所有订单
+    public List<Order> allOrder(){
+        return orderMapper.allOrder();
+    }
+
 }
