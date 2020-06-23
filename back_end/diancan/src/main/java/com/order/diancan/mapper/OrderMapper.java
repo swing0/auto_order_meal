@@ -18,6 +18,17 @@ public interface OrderMapper {
                 @Param("customer_id") long customer_id
                 );
 
+    //修改订单信息
+    @Update("UPDATE order_list SET price = #{price},date = #{date},state = #{state},dish_id_list = #{dish_id_list},restaurant_id = #{restaurant_id},customer_id = #{customer_id} WHERE id = #{id}")
+    void updateOrder(@Param("id") Long id,
+                     @Param("price") long price,
+                     @Param("date") String date,
+                     @Param("state") int state,
+                     @Param("dish_id_list") String dish_id_list,
+                     @Param("restaurant_id") long restaurant_id,
+                     @Param("customer_id") long customer_id
+                    );
+
     //改变订单状态
     @Update("UPDATE order_list SET state = #{state}, date = #{date} WHERE id = #{id}")
     void updateState(@Param("id") long id,@Param("state") int state,@Param("date") String date);

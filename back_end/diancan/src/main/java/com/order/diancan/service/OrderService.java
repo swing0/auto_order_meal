@@ -30,6 +30,11 @@ public class OrderService {
         orderMapper.insert(order.getPrice(),order.getDate(),order.getState(),order.getDish_id_list(),order.getRestaurant_id(),order.getCustomer_id());
     }
 
+    //修改订单信息
+    public void updateOrder(Order order){
+        orderMapper.updateOrder(order.getId(),order.getPrice(),order.getDate(),order.getState(),order.getDish_id_list(),order.getRestaurant_id(),order.getCustomer_id());
+    }
+
     //更改订单状态
     public void updateOrderState(long id,int state){
         Date date = new Date();

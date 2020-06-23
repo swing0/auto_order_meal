@@ -18,26 +18,6 @@ public class ResultUtil {
         msg.setData(object);
         return msg;
     }
-    public static Msg success(){
-        return success(null);
-    }
-    public static Msg registerSuccess(){
-        return success("注册成功");
-    }
-    public static Msg registerOrderSuccess(){return success("订单添加成功");}
-    public static int registerRestaurantSuccess(int id) {
-        return id;
-    }
-    public static String userLoginSuccess(User user){
-        user.setPassword("");
-        String json = JSON.toJSONString(user);
-        return json;
-    }
-    public static String adminLoginSuccess(Admin admin){
-        admin.setPassword("");
-        String json = JSON.toJSONString(admin);
-        return json;
-    }
     public static Msg error(Integer code,String resultmsg){
         Msg msg = new Msg();
         msg.setCode(code);

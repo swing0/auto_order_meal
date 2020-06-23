@@ -7,6 +7,7 @@ import com.order.diancan.service.DishService;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,23 +24,30 @@ public class DishController {
 
     //根据饭店id查询其所有菜品
     @RequestMapping(value = "/restaurant_id/{restaurant_id}",method = RequestMethod.GET)
-    public String allDish(@PathVariable("restaurant_id") int restaurant_id){
-        return JSON.toJSONString(dishService.dishesFromRestaurant(restaurant_id));
+    public Msg allDish(@PathVariable("restaurant_id") int restaurant_id){
+        try {
+            List<Dish> dishList = dishService.dishesFromRestaurant(restaurant_id);
+            return ResultUtil.success(dishList);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误，查询失败:" + e);
+        }
     }
 
     //根据价格查找所有饭店的推荐
     @RequestMapping(value = "/{restaurant_id}/{price}",method = RequestMethod.GET)
     public Msg selectBestDishes(@PathVariable int restaurant_id, @PathVariable("price") long price ){
-        StringBuilder json = new StringBuilder();
-
-        List<Integer> ids = selectFromRestaurant(price,restaurant_id);
-        for (int i = 0; i < ids.size(); i++) {
-            json.append(JSON.toJSONString(dishService.dishesFromId(ids.get(i))));
-        }
-        if (json.toString().equals("")){
-            return ResultUtil.error(204,"未能找到推荐菜单");
-        }else {
-            return ResultUtil.success(json.toString().replace("][",","));
+        try {
+            List<Dish> dishList = new ArrayList<>();
+            List<Integer> ids = selectFromRestaurant(price,restaurant_id);
+            for (Integer id : ids) {
+                dishList.add(dishService.dishById(id));
+            }
+            if (dishList.isEmpty()){
+                return ResultUtil.error(201,"未能找到推荐菜单");
+            }
+            return ResultUtil.success(dishList);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误,查询失败:" + e);
         }
     }
 
@@ -48,12 +56,26 @@ public class DishController {
     public Msg addDishes(@RequestBody Dish dish){
         try {
             dishService.addDish(dish);
-        } catch (Exception e) {
-            return ResultUtil.error(400,"未知错误");
+        } catch (DuplicateKeyException e){
+            return ResultUtil.error(201,"菜名已存在");
+        }catch (Exception e) {
+            return ResultUtil.error(400,"未知错误:" + e);
         }
         return ResultUtil.success("添加成功");
     }
 
+    //修改菜品信息
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    public Msg updateDishes(@RequestBody Dish dish){
+        try {
+            dishService.updateDish(dish);
+        } catch (DuplicateKeyException e){
+            return ResultUtil.error(201,"菜名已存在");
+        }catch (Exception e) {
+            return ResultUtil.error(400,"未知错误:" + e);
+        }
+        return ResultUtil.success("修改成功");
+    }
     //查找特定饭店的特定价格推荐
     public List<Integer> selectFromRestaurant(long price, int restaurant_id){
         List<Dish> dishes = dishService.dishesFromRestaurant(restaurant_id);

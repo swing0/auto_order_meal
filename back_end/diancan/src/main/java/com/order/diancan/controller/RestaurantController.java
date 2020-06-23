@@ -26,18 +26,35 @@ public class RestaurantController {
     public Object register(@RequestBody Restaurant restaurant){
         try {
             int restaurant_id = restaurantService.insertRestaurant(restaurant);
-            return ResultUtil.registerRestaurantSuccess(restaurant_id);
+            return ResultUtil.success(restaurant_id);
         } catch (DuplicateKeyException e){
             return ResultUtil.error(201,"电话号码已注册");
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常，餐厅注册失败");
+            return ResultUtil.error(400,"出现异常，餐厅注册失败:" + e);
         }
+    }
+
+    //修改餐厅信息
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    public Object update(@RequestBody Restaurant restaurant){
+        try {
+            restaurantService.updateRestaurant(restaurant);
+        } catch (DuplicateKeyException e){
+            return ResultUtil.error(201,"电话号码已注册");
+        } catch (Exception e) {
+            return ResultUtil.error(400,"出现异常，餐厅信息修改失败:" + e);
+        }
+        return ResultUtil.success("成功修改餐厅信息");
     }
 
     //返回所有的餐厅信息
     @RequestMapping(value = "info",method = RequestMethod.GET)
-    public String allInfo(){
-        String json = JSON.toJSONString(restaurantService.allRestaurant());
-        return json;
+    public Msg allInfo(){
+        try {
+            List<Restaurant> restaurantList = restaurantService.allRestaurant();
+            return ResultUtil.success(restaurantList);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"餐厅信息返回失败:" + e);
+        }
     }
 }

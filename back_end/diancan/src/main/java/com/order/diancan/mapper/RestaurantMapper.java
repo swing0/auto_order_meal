@@ -19,6 +19,17 @@ public interface RestaurantMapper {
                 @Param("total_score") long total_score
                 );
 
+    //修改饭店信息
+    @Update("UPDATE restaurant SET name = #{name},address = #{address},phone = #{phone},classification = #{classification},scoring_times = #{scoring_times},total_score = #{total_score} WHERE id = #{id}")
+    void update(@Param("id") Long id,
+                @Param("name") String name,
+                @Param("address") String address,
+                @Param("phone") String phone,
+                @Param("classification") String classification,
+                @Param("scoring_times") long scoring_times,
+                @Param("total_score") long total_score
+    );
+
     //根据手机号查找刚插入的饭店的id
     @Select("SELECT * FROM restaurant WHERE phone=#{phone}")
     int selectIdFromPhone(@Param("phone") String phone);

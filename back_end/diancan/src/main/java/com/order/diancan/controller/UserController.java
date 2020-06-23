@@ -30,10 +30,24 @@ public class UserController {
         } catch (DuplicateKeyException e){
             return ResultUtil.error(201,"用户名已存在或电话号码已被注册");
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常，用户注册失败");
+            return ResultUtil.error(400,"出现异常，用户注册失败:" + e);
         }
-        return ResultUtil.registerSuccess();
+        return ResultUtil.success("注册成功");
     }
+
+    //修改用户信息
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    public Msg update(@RequestBody User user){
+        try {
+            userService.updateUser(user);
+        } catch (DuplicateKeyException e){
+            return ResultUtil.error(201,"用户名已存在或电话号码已被注册");
+        } catch (Exception e) {
+            return ResultUtil.error(400,"出现异常，用户信息修改失败:" + e);
+        }
+        return ResultUtil.success("用户信息修改成功");
+    }
+
 
     //用户根据account登录
     @RequestMapping(value = "login",method = RequestMethod.POST)
@@ -43,12 +57,13 @@ public class UserController {
             if (userResult == null){
                 return ResultUtil.error(202,"该用户没有注册");
             }else if (userResult.getPassword().equals(user.getPassword())){
-                return ResultUtil.userLoginSuccess(userResult);
+                userResult.setPassword("");
+                return ResultUtil.success(userResult);
             }else {
                 return ResultUtil.error(203,"密码错误");
             }
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常，用户登录失败");
+            return ResultUtil.error(400,"出现异常，用户登录失败:" + e);
         }
     }
 
@@ -59,7 +74,7 @@ public class UserController {
             List<User> userList = userService.selectAllUser();
             return ResultUtil.success(userList);
         } catch (Exception e) {
-            return ResultUtil.error(400,"未知错误,用户查询失败");
+            return ResultUtil.error(400,"未知错误,用户查询失败:" + e);
         }
     }
 

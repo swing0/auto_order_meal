@@ -19,6 +19,12 @@ public class UserService {
         userMapper.insert(user.getNickname(),user.getAccount(),user.getPassword(),user.getPhone(),user.getAddress());
     }
 
+    //修改用户信息
+    public void updateUser(User user){
+        userMapper.update(user.getId(),user.getNickname(),user.getAccount(),user.getPassword(),user.getPhone(),user.getAddress());
+    }
+
+
     //用户根据account登录
     public User selectUserByAccount(User user){
         return userMapper.select(user.getAccount());

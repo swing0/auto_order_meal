@@ -25,9 +25,9 @@ public class AdminController {
         } catch (DuplicateKeyException e){
             return ResultUtil.error(201,"管理员名已存在");
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常，管理员注册失败");
+            return ResultUtil.error(400,"出现异常，管理员注册失败:" + e);
         }
-        return ResultUtil.registerSuccess();
+        return ResultUtil.success("管理员注册成功");
     }
 
     //管理员根据account登录
@@ -38,12 +38,13 @@ public class AdminController {
             if (adminResult == null){
                 return ResultUtil.error(202,"该管理员没有注册");
             }else if (adminResult.getPassword().equals(admin.getPassword())){
-                return ResultUtil.adminLoginSuccess(adminResult);
+                adminResult.setPassword("");
+                return ResultUtil.success(adminResult);
             }else {
                 return ResultUtil.error(203,"密码错误");
             }
         } catch (Exception e) {
-            return ResultUtil.error(400,"出现异常，管理员登录失败");
+            return ResultUtil.error(400,"出现异常，管理员登录失败" + e);
         }
     }
 }

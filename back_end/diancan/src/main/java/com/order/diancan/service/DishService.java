@@ -18,10 +18,6 @@ public class DishService {
         return dishMapper.selectDishFromRestaurant(restaurant_id);
     }
 
-    //根据菜品id查询其信息
-    public List<Dish> dishesFromId(int id){
-        return dishMapper.selectDishFromId(id);
-    }
 
     //根据菜品id返回菜品对象
     public Dish dishById(long id){return dishMapper.selectDishById(id);}
@@ -39,5 +35,18 @@ public class DishService {
             dish.getRestaurant_id()
     );}
 
+    //修改菜品信息
+    public void updateDish(Dish dish){ dishMapper.update(
+            dish.getId(),
+            dish.getName(),
+            dish.getImage(),
+            dish.getClassification(),
+            dish.getCuisine(),
+            dish.getSales_volume(),
+            dish.getPrice(),
+            dish.getScoring_times(),
+            dish.getTotal_score(),
+            dish.getRestaurant_id()
+    );}
 
 }

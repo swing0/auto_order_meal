@@ -1,10 +1,7 @@
 package com.order.diancan.mapper;
 
 import com.order.diancan.bean.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,6 +19,16 @@ public interface UserMapper {
     //select登录用
     @Select("SELECT * FROM customer WHERE account=#{account}")
     User select(@Param("account") String account);
+
+    //修改用户信息
+    @Update("UPDATE customer SET nickname = #{nickname},account = #{account},password = #{password},phone = #{phone},address = #{address} WHERE id = #{id}")
+    void update(@Param("id") Long id,
+                @Param("nickname") String nickname,
+                @Param("account") String account,
+                @Param("password") String password,
+                @Param("phone") String phone,
+                @Param("address") String address
+                );
 
     //查询所有用户
     @Select("SELECT * FROM customer")
