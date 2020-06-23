@@ -49,4 +49,7 @@ public class DishService {
             dish.getRestaurant_id()
     );}
 
+    //根据菜品id使菜品的销量加一
+    public void saleVolumeAdd(long id){dishMapper.saleVolumeAdd(id);}
+
 }

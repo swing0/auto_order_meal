@@ -41,4 +41,8 @@ public interface OrderMapper {
     //查询订单
     @Select("SELECT * FROM order_list")
     List<Order> allOrder();
+
+    //根据订单id查出菜品id列表
+    @Select("SELECT dish_id_list FROM order_list WHERE id = #{id}")
+    String selectDishIdList(@Param("id") long id);
 }

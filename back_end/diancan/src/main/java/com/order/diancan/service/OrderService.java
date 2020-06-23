@@ -3,6 +3,7 @@ package com.order.diancan.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.order.diancan.bean.*;
+import com.order.diancan.mapper.DishMapper;
 import com.order.diancan.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class OrderService {
     private OrderMapper orderMapper;
 
     @Autowired
+    private DishMapper dishMapper;
+
+    @Autowired
     private RestaurantService restaurantService;
 
     @Autowired
@@ -33,6 +37,9 @@ public class OrderService {
     //修改订单信息
     public void updateOrder(Order order){
         orderMapper.updateOrder(order.getId(),order.getPrice(),order.getDate(),order.getState(),order.getDish_id_list(),order.getRestaurant_id(),order.getCustomer_id());
+        if (order.getState().equals(2)){
+            addDishSalesVolume(order.getId());
+        }
     }
 
     //更改订单状态
@@ -41,6 +48,10 @@ public class OrderService {
         Timestamp timestamp = new Timestamp(date.getTime());
         String date1 = timestamp.toString();
         orderMapper.updateState(id,state,date1);
+        //当订单的状态变为2(付款)时，调用此函数，增加订单中菜品相应的销量
+        if (state == 2){
+            addDishSalesVolume(id);
+        }
     }
 
     //批量修改订单状态
@@ -51,6 +62,10 @@ public class OrderService {
             Timestamp timestamp = new Timestamp(date.getTime());
             String date1 = timestamp.toString();
             orderMapper.updateState(id.getId(),orderStates.getState(),date1);
+            //当订单的状态变为2(付款)时，调用此函数，增加订单中菜品相应的销量
+            if (orderStates.getState().equals(2)){
+                addDishSalesVolume(id.getId());
+            }
         }
 
     }
@@ -59,6 +74,19 @@ public class OrderService {
     public List<Order> selectOrderByState(long customer_id, int state){
         return orderMapper.orderFromCustomerAndState(customer_id,state);
     }
+
+    //当订单的状态变为2(付款)时，调用此函数，增加订单中菜品相应的销量
+    public void addDishSalesVolume(long orderId){
+        //根据订单id查出菜品id列表
+        String idList = orderMapper.selectDishIdList(orderId);
+        //根据菜品id列表解析出菜品的int型id数组
+        String[] idsString = idList.split(",");//菜品id是按照逗号分割的
+        for (String s : idsString) {
+            //根据菜品的id查询使菜品的销量加一
+            dishMapper.saleVolumeAdd(Long.parseLong(s));
+        }
+    }
+
 
     //根据顾客id与订单状态返回餐厅与菜品信息的json,可能有多个菜品
     public List<OrderDetails> restaurantAndDishes(long restaurant_id,int state){

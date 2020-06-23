@@ -41,4 +41,8 @@ public interface DishMapper {
                 @Param("scoring_times") Long scoring_times,
                 @Param("total_score") Long total_score,
                 @Param("restaurant_id") Long restaurant_id);
+
+    //根据id使菜品销量加一
+    @Update("UPDATE dish SET sales_volume = sales_volume + 1 WHERE id = #{id}")
+    void saleVolumeAdd(long id);
 }
