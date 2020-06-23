@@ -19,8 +19,9 @@ public interface OrderMapper {
                 );
 
     //改变订单状态
-    @Update("UPDATE order_list SET state = #{state} WHERE id = #{id}")
-    void updateState(@Param("id") long id,@Param("state") int state);
+    @Update("UPDATE order_list SET state = #{state}, date = #{date} WHERE id = #{id}")
+    void updateState(@Param("id") long id,@Param("state") int state,@Param("date") String date);
+
 
     //查找用户的特定状态订单,可能有多个
     @Select("SELECT * FROM order_list WHERE customer_id = #{customer_id} AND state = #{state}")

@@ -3,6 +3,7 @@ package com.order.diancan.controller;
 import com.order.diancan.bean.Order;
 import com.order.diancan.bean.OrderDetails;
 import com.order.diancan.bean.OrderState;
+import com.order.diancan.bean.OrderStates;
 import com.order.diancan.service.OrderService;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
@@ -40,6 +41,18 @@ public class OrderController {
         try {
             orderService.updateOrderState(orderState.getId(),orderState.getState());
         } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误,订单修改失败");
+        }
+        return ResultUtil.success("订单状态修改成功");
+    }
+
+    //更改多个订单状态
+    @RequestMapping(value = "updateManyState",method = RequestMethod.POST)
+    public Msg updateManyState(@RequestBody OrderStates orderStates){
+        try {
+            orderService.updateManyOrderState(orderStates);
+        } catch (Exception e) {
+            System.out.println(e);
             return ResultUtil.error(400,"未知错误,订单修改失败");
         }
         return ResultUtil.success("订单状态修改成功");

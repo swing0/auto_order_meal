@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,7 +32,22 @@ public class OrderService {
 
     //更改订单状态
     public void updateOrderState(long id,int state){
-        orderMapper.updateState(id,state);
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        String date1 = timestamp.toString();
+        orderMapper.updateState(id,state,date1);
+    }
+
+    //批量修改订单状态
+    public void updateManyOrderState(OrderStates orderStates){
+        List<OrderId> ids = orderStates.getData();
+        for (OrderId id : ids){
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            String date1 = timestamp.toString();
+            orderMapper.updateState(id.getId(),orderStates.getState(),date1);
+        }
+
     }
 
     //根据用户id和订单状态返回订单对象

@@ -1,5 +1,8 @@
 package com.order.diancan.controller;
 
+import com.order.diancan.bean.OrderId;
+import com.order.diancan.bean.OrderState;
+import com.order.diancan.bean.OrderStates;
 import com.order.diancan.bean.User;
 import com.order.diancan.mapper.UserMapper;
 import com.order.diancan.service.UserService;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.order.diancan.utils.Msg;
 import com.order.diancan.utils.ResultUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -61,7 +65,11 @@ public class UserController {
 
     //测试
     @RequestMapping("/test")
-    public String hello(){
-        return "hello";
+    public Msg hello(){
+        List<OrderId> ids = new ArrayList<>();
+        ids.add(0, new OrderId((long) 1));
+        ids.add(1, new OrderId((long) 2));
+        OrderStates orderStates = new OrderStates(ids,1);
+        return ResultUtil.success(orderStates);
     }
 }
