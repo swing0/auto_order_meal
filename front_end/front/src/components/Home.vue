@@ -4,7 +4,7 @@
     <el-header>
       <div>
         <img src="../assets/heima.png" alt="">
-        <span>自主订单系统</span>
+        <span>自主订单后台管理</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
@@ -42,20 +42,19 @@ export default {
     return {
       // 左侧菜单数据
       menulist: [
-          {id:0,name:'用户点餐',path:'welcome'},
-          {id:1,name:'商家列表',path:'shangjia'},
-          {id:2,name:'订单管理',path:'order'}
+          {id:0,name:'用户管理',path:'welcome'},
+          {id:1,name:'商家管理',path:'shangjia'},
+          
+          {id:2,name:'订单管理',path:'order'},
+          {id:3,name:'菜品管理',path:'dish'},
       ],
       
-    //   shangjia_name:[
-    //           { shangjia_id:001,shangjia_name_name:"'商家1'"},
-    //           { shangjia_id:002,shangjia_name_name:"'商家2'"},
-    //           { shangjia_id:003,shangjia_name_name:"'商家3'"}
-    //   ],
+  
       iconsObj: {
         '0': 'iconfont icon-user',
         '1': 'iconfont icon-shangpin',
-        '2': 'iconfont icon-danju'
+        '2': 'iconfont icon-danju',
+        '3': 'iconfont icon-danju'
       },
       // 是否折叠
       isCollapse: false,

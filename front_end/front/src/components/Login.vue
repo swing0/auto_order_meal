@@ -55,7 +55,21 @@ export default {
      this.$router.push('/register')
       // this.$refs.loginFormRef.resetFields()
     },
-    login() {
+    login(){
+        this.$refs.loginFormRef.validate( valid => {
+                
+              if (!valid) return ;
+              console.log(valid);
+              this.$axios.post('api/user/login',{"account":"swing","password":"123456"}).then(res=>{
+              console.log(res);
+              if (res.status !== 200) return this.$message.error('登录失败！')
+              this.$message.success('登录成功')
+              this.$router.push('/home')
+           })
+            })
+            }
+    },
+    login1() {
       this.$refs.loginFormRef.validate( valid => {
         
         if (!valid) return ;
@@ -70,7 +84,7 @@ export default {
      })
     }
   }
-}
+
 
 
 
