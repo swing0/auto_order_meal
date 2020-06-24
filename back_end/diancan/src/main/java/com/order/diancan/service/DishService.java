@@ -23,7 +23,7 @@ public class DishService {
     public Dish dishById(long id){return dishMapper.selectDishById(id);}
 
     //根据菜品name返回菜品对象
-    public Dish dishByName(String name){return dishMapper.selectDishByName(name);}
+    public List<Dish> dishByName(String name){return dishMapper.selectDishByName(name);}
 
     //添加菜品
     public void addDish(Dish dish){ dishMapper.insert(

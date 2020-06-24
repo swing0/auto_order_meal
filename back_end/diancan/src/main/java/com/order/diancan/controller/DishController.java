@@ -37,8 +37,8 @@ public class DishController {
     @RequestMapping(value = "infoByName",method = RequestMethod.POST)
     public Msg infoByName(@RequestBody Dish dish){
         try {
-            Dish dishResult = dishService.dishByName(dish.getName());
-            if (dishResult == null){
+            List<Dish> dishResult = dishService.dishByName(dish.getName());
+            if (dishResult.isEmpty()){
                 return ResultUtil.error(202,"未找到菜品信息");
             }else {
                 return ResultUtil.success(dishResult);

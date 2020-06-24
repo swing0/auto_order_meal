@@ -18,7 +18,7 @@ public interface DishMapper {
 
     //根据name返回菜品信息
     @Select("SELECT * FROM dish WHERE name = #{name}")
-    Dish selectDishByName(String name);
+    List<Dish> selectDishByName(String name);
 
     //修改菜品信息
     @Update("UPDATE dish SET name = #{name},image = #{image},classification = #{classification},cuisine = #{cuisine},sales_volume = #{sales_volume},price = #{price},scoring_times = #{scoring_times},total_score = #{total_score},restaurant_id = #{restaurant_id} WHERE id = #{id}")
