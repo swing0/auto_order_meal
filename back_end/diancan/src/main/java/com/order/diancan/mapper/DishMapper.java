@@ -16,6 +16,10 @@ public interface DishMapper {
     @Select("SELECT * FROM dish WHERE id = #{id}")
     Dish selectDishById(long id);
 
+    //根据name返回菜品信息
+    @Select("SELECT * FROM dish WHERE name = #{name}")
+    Dish selectDishByName(String name);
+
     //修改菜品信息
     @Update("UPDATE dish SET name = #{name},image = #{image},classification = #{classification},cuisine = #{cuisine},sales_volume = #{sales_volume},price = #{price},scoring_times = #{scoring_times},total_score = #{total_score},restaurant_id = #{restaurant_id} WHERE id = #{id}")
     void update(@Param("id") Long id,
@@ -41,6 +45,10 @@ public interface DishMapper {
                 @Param("scoring_times") Long scoring_times,
                 @Param("total_score") Long total_score,
                 @Param("restaurant_id") Long restaurant_id);
+
+    //查询所有菜品
+    @Select("SELECT * FROM dish")
+    List<Dish> selectAll();
 
     //根据id使菜品销量加一
     @Update("UPDATE dish SET sales_volume = sales_volume + 1 WHERE id = #{id}")

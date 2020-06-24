@@ -70,6 +70,11 @@ public class OrderService {
 
     }
 
+    //根据订单id查询订单信息
+    public Order infoById(Long id){
+        return orderMapper.infoById(id);
+    }
+
     //根据用户id和订单状态返回订单对象
     public List<Order> selectOrderByState(long customer_id, int state){
         return orderMapper.orderFromCustomerAndState(customer_id,state);

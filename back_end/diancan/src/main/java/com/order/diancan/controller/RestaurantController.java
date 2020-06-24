@@ -57,4 +57,19 @@ public class RestaurantController {
             return ResultUtil.error(400,"餐厅信息返回失败:" + e);
         }
     }
+
+    //根据名字查找饭店信息
+    @RequestMapping(value = "infoByName",method = RequestMethod.POST)
+    public Msg infoByName(@RequestBody Restaurant restaurant){
+        try {
+            Restaurant restaurantResult = restaurantService.infoByName(restaurant);
+            if (restaurantResult == null){
+                return ResultUtil.error(202,"没有该用户信息");
+            }else {
+                return ResultUtil.success(restaurantResult);
+            }
+        } catch (Exception e) {
+            return ResultUtil.error(400,"餐厅信息返回失败:" + e);
+        }
+    }
 }

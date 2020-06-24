@@ -51,7 +51,7 @@ public class UserController {
 
     //用户根据account登录
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Object login(@RequestBody User user){
+    public Msg login(@RequestBody User user){
         try {
             User userResult = userService.selectUserByAccount(user);
             if (userResult == null){
@@ -61,6 +61,21 @@ public class UserController {
                 return ResultUtil.success(userResult);
             }else {
                 return ResultUtil.error(203,"密码错误");
+            }
+        } catch (Exception e) {
+            return ResultUtil.error(400,"出现异常，用户登录失败:" + e);
+        }
+    }
+
+    //根据账号查找用户信息
+    @RequestMapping(value = "infoByAccount")
+    public Msg infoByAccount(@RequestBody User user){
+        try {
+            User userResult = userService.selectUserByAccount(user);
+            if (userResult == null){
+                return ResultUtil.error(202,"没有该用户信息");
+            }else {
+                return ResultUtil.success(userResult);
             }
         } catch (Exception e) {
             return ResultUtil.error(400,"出现异常，用户登录失败:" + e);

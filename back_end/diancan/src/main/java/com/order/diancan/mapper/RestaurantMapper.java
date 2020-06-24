@@ -34,6 +34,10 @@ public interface RestaurantMapper {
     @Select("SELECT * FROM restaurant WHERE phone=#{phone}")
     int selectIdFromPhone(@Param("phone") String phone);
 
+    //根据名字查找饭店信息
+    @Select("SELECT * FROM restaurant WHERE name = #{name}")
+    Restaurant selectByName(@Param("name") String name);
+
     //查询所有的饭店信息
     @Select("SELECT * FROM restaurant")
     List<Restaurant> selectAllInfo();

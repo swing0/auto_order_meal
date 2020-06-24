@@ -33,6 +33,21 @@ public class DishController {
         }
     }
 
+    //根据菜品name查询菜品信息
+    @RequestMapping(value = "infoByName",method = RequestMethod.POST)
+    public Msg infoByName(@RequestBody Dish dish){
+        try {
+            Dish dishResult = dishService.dishByName(dish.getName());
+            if (dishResult == null){
+                return ResultUtil.error(202,"未找到菜品信息");
+            }else {
+                return ResultUtil.success(dishResult);
+            }
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误，查询失败:" + e);
+        }
+    }
+
     //根据价格查找所有饭店的推荐
     @RequestMapping(value = "/{restaurant_id}/{price}",method = RequestMethod.GET)
     public Msg selectBestDishes(@PathVariable int restaurant_id, @PathVariable("price") long price ){
@@ -62,6 +77,16 @@ public class DishController {
             return ResultUtil.error(400,"未知错误:" + e);
         }
         return ResultUtil.success("添加成功");
+    }
+
+    //查询所有菜品
+    @RequestMapping(value = "allDishes",method = RequestMethod.GET)
+    public Msg allDishes(){
+        try {
+            return ResultUtil.success(dishService.selectAll());
+        } catch (Exception e) {
+            return ResultUtil.error(400,"查询失败:" + e);
+        }
     }
 
     //修改菜品信息

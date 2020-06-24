@@ -71,6 +71,21 @@ public class OrderController {
         return ResultUtil.success("订单状态修改成功");
     }
 
+    //根据订单id查询订单信息
+    @RequestMapping(value = "infoById",method = RequestMethod.POST)
+    public Msg infoById(@RequestBody Order order){
+        try {
+            Order orderResult = orderService.infoById(order.getId());
+            if (orderResult == null){
+                return ResultUtil.error(202,"未找到订单信息");
+            }else {
+                return ResultUtil.success(orderResult);
+            }
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误,订单修改失败:" + e);
+        }
+    }
+
     //根据顾客id与订单状态返回餐厅与菜品信息的json
     @RequestMapping(value = "state",method = RequestMethod.POST)
     public Msg listState(@RequestBody OrderState orderState){

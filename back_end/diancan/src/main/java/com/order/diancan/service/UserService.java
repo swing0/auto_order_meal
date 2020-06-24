@@ -25,7 +25,7 @@ public class UserService {
     }
 
 
-    //用户根据account登录
+    //根据账号查询用户信息
     public User selectUserByAccount(User user){
         return userMapper.select(user.getAccount());
     }

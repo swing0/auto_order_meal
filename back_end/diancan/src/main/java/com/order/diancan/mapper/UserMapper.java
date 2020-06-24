@@ -16,7 +16,7 @@ public interface UserMapper {
                @Param("address") String address
                );
 
-    //select登录用
+    //根据账号查询用户信息
     @Select("SELECT * FROM customer WHERE account=#{account}")
     User select(@Param("account") String account);
 

@@ -22,6 +22,9 @@ public class DishService {
     //根据菜品id返回菜品对象
     public Dish dishById(long id){return dishMapper.selectDishById(id);}
 
+    //根据菜品name返回菜品对象
+    public Dish dishByName(String name){return dishMapper.selectDishByName(name);}
+
     //添加菜品
     public void addDish(Dish dish){ dishMapper.insert(
             dish.getName(),
@@ -34,6 +37,9 @@ public class DishService {
             dish.getTotal_score(),
             dish.getRestaurant_id()
     );}
+
+    //查询所有菜品
+    public List<Dish> selectAll(){return dishMapper.selectAll();}
 
     //修改菜品信息
     public void updateDish(Dish dish){ dishMapper.update(

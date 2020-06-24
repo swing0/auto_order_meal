@@ -38,9 +38,13 @@ public interface OrderMapper {
     @Select("SELECT * FROM order_list WHERE customer_id = #{customer_id} AND state = #{state}")
     List<Order> orderFromCustomerAndState(@Param("customer_id") long customer_id, @Param("state") int state);
 
-    //查询订单
+    //查询所有订单
     @Select("SELECT * FROM order_list")
     List<Order> allOrder();
+
+    //根据订单id查询订单信息
+    @Select("SELECT * FROM order_list WHERE id = #{id}")
+    Order infoById(Long id);
 
     //根据订单id查出菜品id列表
     @Select("SELECT dish_id_list FROM order_list WHERE id = #{id}")

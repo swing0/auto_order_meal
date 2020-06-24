@@ -29,6 +29,10 @@ public class RestaurantService {
         restaurantMapper.update((long) restaurant.getId(),restaurant.getName(),restaurant.getAddress(),restaurant.getPhone(),restaurant.getClassification(),restaurant.getScoring_times(),restaurant.getTotal_score());
     }
 
+    //根据名字查找饭店信息
+    public Restaurant infoByName(Restaurant restaurant){
+        return restaurantMapper.selectByName(restaurant.getName());
+    }
 
     //返回所有的饭店信息
     public List<Restaurant> allRestaurant(){
