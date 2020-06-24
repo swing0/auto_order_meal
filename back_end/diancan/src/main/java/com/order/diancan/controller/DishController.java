@@ -1,6 +1,5 @@
 package com.order.diancan.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.order.diancan.AutoRefer.BagFBack;
 import com.order.diancan.bean.Dish;
 import com.order.diancan.service.DishService;
@@ -12,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("/dish")
@@ -69,14 +67,24 @@ public class DishController {
     //添加菜品
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public Msg addDishes(@RequestBody Dish dish){
-        try {
-            dishService.addDish(dish);
-        } catch (DuplicateKeyException e){
-            return ResultUtil.error(201,"菜名已存在");
-        }catch (Exception e) {
-            return ResultUtil.error(400,"未知错误:" + e);
+        //同一餐厅不能有相同菜品，如果dish的name与restaurant_id 在数据库中已有相同的，则禁止添加
+        List<Dish> dishResult = dishService.dishByName(dish.getName());
+        AtomicReference<Boolean> existDish = new AtomicReference<>(false);//餐厅是否存在该菜
+        dishResult.forEach(dish1 -> {
+            if (dish1.getRestaurant_id() == dish.getRestaurant_id()){
+                existDish.set(true);
+            }
+        });
+        if (existDish.get()){
+            return ResultUtil.error(201,"该餐厅已存在该菜");
+        }else {
+            try {
+                dishService.addDish(dish);
+            }catch (Exception e) {
+                return ResultUtil.error(400,"未知错误:" + e);
+            }
+            return ResultUtil.success("添加成功");
         }
-        return ResultUtil.success("添加成功");
     }
 
     //查询所有菜品
