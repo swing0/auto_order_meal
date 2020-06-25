@@ -22,12 +22,18 @@
       <!-- 用户列表区域 -->
       <el-table :data="dishlist" border stripe>
         <el-table-column type="index" width="60px"></el-table-column>
-         <el-table-column label="菜品ID" prop="id"></el-table-column>
-        <el-table-column label="菜品" prop="name"></el-table-column>
-        <el-table-column label="价格" prop="price"></el-table-column>
-        <el-table-column label="类型" prop="classification"></el-table-column>
+         <el-table-column label="菜品ID" prop="id" width="60px"></el-table-column>
+        <el-table-column label="菜品" prop="name" ></el-table-column>
+        <el-table-column label="价格" prop="price" width="70px"></el-table-column>
+        <el-table-column label="类型" prop="classification" width="80px"></el-table-column>
         <el-table-column label="评价" prop="cuisine"></el-table-column>
-        <el-table-column label="图片" ></el-table-column>
+        <el-table-column label="图片" prop="image" width="180px">
+          <template slot-scope="scope">
+            <el-popover placement="right" title="" trigger="hover">
+            <img :src="scope.row.image"  style="height: 80px;width: 150px"/>
+            </el-popover>
+          </template> 
+        </el-table-column>
         <el-table-column label="餐厅ID" prop="restaurant_id" width="60px"></el-table-column>
         <el-table-column label="销量" prop="sales_volume" width="60px"></el-table-column>
         <el-table-column label="评分次数"  prop="scoring_times" width="60px"></el-table-column>
@@ -44,10 +50,10 @@
        <el-pagination layout="total" :total="total">
       </el-pagination>
     </el-card>
-    <!-- 添加用户的对话框 -->
+    <!-- 添加菜品的对话框 -->
     <el-dialog title="添加菜品" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed=true">
       <!-- 内容主体区域 -->
-      <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
+      <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="80px">
         <el-form-item label="菜品" prop="name">
           <el-input v-model="addForm.name"></el-input>
         </el-form-item>
@@ -57,20 +63,23 @@
         <el-form-item label="类型" prop="classification">
           <el-input v-model="addForm.classification"></el-input>
         </el-form-item>
-        <el-form-item label="评价" prop="cuisine">
-          <el-input v-model="addForm.cuisine"></el-input>
+        <el-form-item label="图片" prop="image">
+          <el-input v-model="addForm.image" placeholder="可不填"></el-input>
+        </el-form-item>
+        <el-form-item label="评价" prop="cuisine" >
+          <el-input v-model="addForm.cuisine" placeholder="可不填"></el-input>
         </el-form-item>
         <el-form-item label="餐厅ID" prop="restaurant_id">
-          <el-input v-model="addForm.restaurant_id"></el-input>
+          <el-input v-model="addForm.restaurant_id" ></el-input>
         </el-form-item>
-        <el-form-item label="sales_volume" prop="sales_volume">
-          <el-input v-model="addForm.sales_volume"></el-input>
+        <el-form-item label="销量" prop="sales_volume">
+          <el-input v-model="addForm.sales_volume" placeholder="可不填"></el-input>
         </el-form-item>
         <el-form-item label="评分次数" prop="scoring_times">
-          <el-input v-model="addForm.scoring_times"></el-input>
+          <el-input v-model="addForm.scoring_times" placeholder="可不填"></el-input>
         </el-form-item>
         <el-form-item label="评分得分" prop="total_score">
-          <el-input v-model="addForm.total_score"></el-input>
+          <el-input v-model="addForm.total_score" placeholder="可不填"></el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
@@ -94,20 +103,23 @@
         <el-form-item label="类型" prop="classification">
           <el-input v-model="updateForm.classification"></el-input>
         </el-form-item>
+        <el-form-item label="图片" prop="image">
+          <el-input v-model="updateForm.image" placeholder="可不填"></el-input>
+        </el-form-item>
         <el-form-item label="评价" prop="cuisine">
-          <el-input v-model="updateForm.cuisine"></el-input>
+          <el-input v-model="updateForm.cuisine" placeholder="可不填"></el-input>
         </el-form-item>
         <el-form-item label="餐厅ID" prop="restaurant_id">
           <el-input v-model="updateForm.restaurant_id"></el-input>
         </el-form-item>
         <el-form-item label="sales_volume" prop="sales_volume">
-          <el-input v-model="updateForm.sales_volume"></el-input>
+          <el-input v-model="updateForm.sales_volume" placeholder="可不填"></el-input>
         </el-form-item>
         <el-form-item label="评分次数" prop="scoring_times">
-          <el-input v-model="updateForm.scoring_times"></el-input>
+          <el-input v-model="updateForm.scoring_times" placeholder="可不填"></el-input>
         </el-form-item>
         <el-form-item label="评分得分" prop="total_score">
-          <el-input v-model="updateForm.total_score"></el-input>
+          <el-input v-model="updateForm.total_score" placeholder="可不填"></el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
@@ -140,6 +152,7 @@ export default {
            updateForm: {
             classification:"",
             cuisine:"",
+            image:'',
             id:"",
             name:"",
             price:'',
@@ -192,7 +205,7 @@ export default {
                   trigger: 'blur' }
               ],
               cuisine: [
-                { required: true, message: '请输入评价', trigger: 'blur' },
+                { required: false, message: '请输入评价', trigger: 'blur' },
                 { min: 1,
                   max: 20,
                   message: '菜品类别的长度在1~10个字符之间',
@@ -206,21 +219,21 @@ export default {
                   trigger: 'blur' }
               ],
               sales_volume: [
-                { required: true, message: '请输入sales_volume', trigger: 'blur' },
+                { required: false, message: '请输入sales_volume', trigger: 'blur' },
                 { min: 1,
                   max: 10,
                   message: '菜品类别的长度在1~10个字符之间',
                   trigger: 'blur' }
               ],
               scoring_times: [
-                { required: true, message: '请输入评分次数', trigger: 'blur' },
+                { required: false, message: '请输入评分次数', trigger: 'blur' },
                 { min: 1,
                   max: 3,
                   message: '菜品类别的长度在1~3个字符之间',
                   trigger: 'blur' }
               ],
               total_score: [
-                { required: true, message: '请输入评分得分', trigger: 'blur' },
+                { required: false, message: '请输入评分得分', trigger: 'blur' },
                 { min: 1,
                   max: 3,
                   message: '菜品类别的长度在1~3个字符之间',

@@ -34,7 +34,7 @@
         <template slot-scope="scope">
             <!-- 修改按钮 -->
             <el-tooltip effect="dark" content="编辑" placement="top" :enterable="false">
-               <el-button type="warning" icon="el-icon-edit" size="mini" @click="handleClick(scope.row)">编辑订单</el-button>
+               <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleClick(scope.row)">编辑订单</el-button>
             </el-tooltip>  
           </template> 
         </el-table-column>

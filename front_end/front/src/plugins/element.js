@@ -27,8 +27,9 @@ import {
   Select,
   Tree,
   Dropdown,
-  MessageBox,
+  Image,
 } from 'element-ui'
+
 
 Vue.use(Option)
 Vue.use(Dropdown)

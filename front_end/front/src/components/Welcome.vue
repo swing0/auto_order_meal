@@ -10,7 +10,8 @@
     <el-card>
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入用户账号" v-model="searchuser.account" clearable @clear="getUserList">
+          <el-input placeholder="请输入用户账号" minlength=1
+           v-model="searchuser.account" clearable @clear="getUserList">
           </el-input>
         </el-col>
         <el-col :span="4">

@@ -44,17 +44,17 @@ export default {
       menulist: [
           {id:0,name:'用户管理',path:'welcome'},
           {id:1,name:'商家管理',path:'shangjia'},
-          
-          {id:2,name:'订单管理',path:'order'},
-          {id:3,name:'菜品管理',path:'dish'},
+           {id:2,name:'菜品管理',path:'dish'},
+          {id:3,name:'订单管理',path:'order'},
+         
       ],
       
   
       iconsObj: {
         '0': 'iconfont icon-user',
         '1': 'iconfont icon-shangpin',
-        '2': 'iconfont icon-danju',
-        '3': 'iconfont icon-danju'
+        '2': 'iconfont icon-tijikongjian',
+        '3': 'iconfont icon-danju',
       },
       // 是否折叠
       isCollapse: false,

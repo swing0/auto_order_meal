@@ -49,7 +49,7 @@
       <!-- 添加用户的对话框 -->
     <el-dialog title="添加商家" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed=true">
       <!-- 内容主体区域 -->
-      <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
+      <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="80px">
         <el-form-item label="商家名" prop="name">
           <el-input v-model="addForm.name"></el-input>
         </el-form-item>
