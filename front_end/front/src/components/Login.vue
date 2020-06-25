@@ -1,18 +1,18 @@
 <template>
   <div class="login_container">
     <div class="login_box">
-    <div class="avatar_box">
+    <!-- <div class="avatar_box">
       <img src="../assets/logo.png" alt="">
-    </div>
+    </div> -->
       <!-- 登录表单区域 -->
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
         <!-- 用户名 -->
-        <el-form-item prop="account">
-          <el-input v-model="loginForm.account" prefix-icon="iconfont icon-user"></el-input>
+        <el-form-item prop="account" >
+          <el-input v-model="loginForm.account" prefix-icon="iconfont icon-user" placeholder="请输入账号"></el-input>
         </el-form-item>
         <!-- 密码 -->
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password" ></el-input>
+        <el-form-item prop="password" >
+          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -83,14 +83,14 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-  background-color: #2b4b6b;
+  background-color: #DCDCDC;
   height: 100%;
 }
 
 .login_box {
   width: 450px;
   height: 300px;
-  background-color: #fff;
+  background-color: #F0F8FF;
   border-radius: 3px;
   position: absolute;
   left: 50%;

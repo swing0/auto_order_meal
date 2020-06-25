@@ -3,7 +3,7 @@
     <!-- 头部区域 -->
     <el-header>
       <div>
-        <img src="../assets/heima.png" alt="">
+        <!-- <img src="../assets/heima.png" alt=""> -->
         <span>自主订单后台管理</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
@@ -12,9 +12,9 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
-        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <div class="toggle-button"></div>
         <!-- 侧边栏菜单区域 -->
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="$router.path">
+        <el-menu background-color="#3C3C3C" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="$router.path">
           <!-- 一级菜单 -->
           <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id">
             <!-- 一级菜单的模板区域 -->
@@ -80,7 +80,7 @@ export default {
   height: 100%;
 }
 .el-header {
-  background-color: #373d41;
+  background-color: #3C3C3C;
   display: flex;
   justify-content: space-between;
   padding-left: 0;
@@ -97,7 +97,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #333744;
+  background-color: #3C3C3C;
   .el-menu {
     border-right: none;
   }
