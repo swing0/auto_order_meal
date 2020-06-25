@@ -29,9 +29,7 @@
         <el-table-column label="评价" prop="cuisine"></el-table-column>
         <el-table-column label="图片" prop="image" width="180px">
           <template slot-scope="scope">
-            <el-popover placement="right" title="" trigger="hover">
             <img :src="scope.row.image"  style="height: 80px;width: 150px"/>
-            </el-popover>
           </template> 
         </el-table-column>
         <el-table-column label="餐厅ID" prop="restaurant_id" width="60px"></el-table-column>

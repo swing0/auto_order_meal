@@ -27,7 +27,7 @@ import {
   Select,
   Tree,
   Dropdown,
-  Image,
+  Popover,
 } from 'element-ui'
 
 

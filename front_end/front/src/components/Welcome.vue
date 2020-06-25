@@ -21,8 +21,8 @@
           <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
         </el-col>
       </el-row>   
-
     <!-- 用户列表区域 -->
+
       <el-table :data="userlist" border stripe style="width: 100%" >
         <el-table-column type="index" width="60px"></el-table-column>
         <el-table-column label="用户ID" prop="id"  width="60px"></el-table-column>
@@ -33,17 +33,16 @@
         <el-table-column label="地址" prop="address"  width="350px"></el-table-column>
         <el-table-column label="操作" >
         <template slot-scope="scope">
+
           <!-- 修改按钮 -->
           <el-tooltip effect="dark" content="编辑" placement="top" :enterable="false">
             <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleClick(scope.row)">编辑用户</el-button>
           </el-tooltip>
-            <!-- 删除按钮
-          <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
-          </el-tooltip> -->    
+
           </template> 
         </el-table-column>
       </el-table>
+
       <!-- 分页区域 -->
       <el-pagination 
       layout="total" 
@@ -182,15 +181,15 @@ export default {
         phone: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { min: 1,
-            max: 10,
-            message: '手机号的长度在1~10个字符之间',
+            max: 15,
+            message: '手机号的长度在1~15个字符之间',
             trigger: 'blur' }
         ],
         address: [
           { required: true, message: '请输入地址', trigger: 'blur' },
           { min: 1,
-            max: 10,
-            message: '地址的长度在1~10个字符之间',
+            max: 20,
+            message: '地址的长度在1~20个字符之间',
             trigger: 'blur' }
         ]
       },
