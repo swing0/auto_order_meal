@@ -28,6 +28,10 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +51,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view= inflater.inflate(R.layout.fragment_main, container, false);
+        x.view().inject(this,view);
+        return view;
 
     }
 
@@ -58,7 +64,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         initOrder();//数据源
         //Log.d("data",data);
         //initlist();//初始化数据list
-
         listView.setAdapter(new ResAdapter(getActivity(),restaurantList));
     }
 
@@ -125,7 +130,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         }
     }
     public void initlist(String data){
-        JSONArray array=(JSONArray) JSONArray.parse(data);
+        JSONObject jsonObject=JSONObject.parseObject(data);
+        JSONArray array=(JSONArray) JSONArray.parse(jsonObject.getString("data"));
         for(int mark=0;mark<array.size();mark++){
             JSONObject res =array.getJSONObject(mark);
             Restaurant restaurant=new Restaurant(Integer.parseInt(res.getString("id")),res.getString("name"),res.getString("classification"),
