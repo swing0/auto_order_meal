@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorTitle">#666699</color>
+    <color name="colorText">#ffffff</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="login_background">#3352CC</color>
+    <color name="addressTextline">#CC3370</color>
+    <color name="checkbox">#55AA55</color>
+</resources>
