@@ -12,7 +12,7 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
-        <div class="toggle-button"></div>
+        <div class="toggle-button">菜单栏</div>
         <!-- 侧边栏菜单区域 -->
         <el-menu background-color="#3C3C3C" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="$router.path">
           <!-- 一级菜单 -->
@@ -113,7 +113,7 @@ export default {
 
 .toggle-button {
   background-color: #4a5064;
-  font-size: 10px;
+  font-size: 15px;
   line-height: 24px;
   color: #fff;
   text-align: center;
