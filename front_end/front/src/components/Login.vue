@@ -17,7 +17,7 @@
         <!-- 按钮区域 -->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="register">注册</el-button>
+          <el-button type="info" >重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -60,7 +60,7 @@ export default {
                 
               if (!valid) return ;
               console.log(valid);
-              this.$axios.post('api/user/login',{"account":"swing","password":"123456"}).then(res=>{
+              this.$axios.post('api/user/login',this.loginForm).then(res=>{
               console.log(res);
               if (res.status !== 200) return this.$message.error('登录失败！')
               this.$message.success('登录成功')
@@ -69,41 +69,11 @@ export default {
             })
             }
     },
-    login1() {
-      this.$refs.loginFormRef.validate( valid => {
-        
-        if (!valid) return ;
-        console.log(valid);
-        this.$message({
-          message:"登录成功",
-          type:"success"
-        })
-       this.$router.push('/home')
-
-
-     })
+    reset() {
+      this.$refs.loginFormRef.resetFields()
     }
   }
 
-
-
-
-
-
-        
-        //   // 传入API名以及请求参数对象
-        //   //  this.$axios.post(
-        //   //    "/user/login",{account:'swing',password:'123456'}
-        //   //                       ).then(res=> {
-        //   //                       console.log(res.data)
-        //   //                       }).catch(err=> {
-        //   //                       console.log(err)
-        //   //                       })
-        // const { data: res } = await this.$http.post('/api/user/login', {"account":"swing","password":"123456"})
-        // // const { data: res } = await this.$http.get('/restaurant/info')
-        // if (res.meta.status !== 200) return this.$message.error('登录失败！')
-        // this.$message.success('登录成功')
-        // // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
         // //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
         // //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
         // window.sessionStorage.setItem('token', res.data.token)

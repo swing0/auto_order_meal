@@ -8,7 +8,7 @@
     <el-card>
         <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="搜索菜品" v-model="searchdish.name"   @clear="getUserList">
+          <el-input placeholder="搜索菜品" v-model="searchdish.name" clearable  @clear="get_dish()">
             <!-- <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button> -->
           </el-input>
         </el-col>
@@ -21,38 +21,33 @@
       </el-row>
       <!-- 用户列表区域 -->
       <el-table :data="dishlist" border stripe>
-        <el-table-column type="index"></el-table-column>
+        <el-table-column type="index" width="60px"></el-table-column>
          <el-table-column label="菜品ID" prop="id"></el-table-column>
         <el-table-column label="菜品" prop="name"></el-table-column>
         <el-table-column label="价格" prop="price"></el-table-column>
         <el-table-column label="类型" prop="classification"></el-table-column>
         <el-table-column label="评价" prop="cuisine"></el-table-column>
         <el-table-column label="图片" ></el-table-column>
-        <el-table-column label="餐厅ID" prop="restaurant_id"></el-table-column>
-        <el-table-column label="销量" prop="sales_volume"></el-table-column>
-        <el-table-column label="评分次数"  prop="scoring_times"></el-table-column>
-        <el-table-column label="评分得分"  prop="total_score"></el-table-column>
-        <el-table-column label="操作" width="180px">
+        <el-table-column label="餐厅ID" prop="restaurant_id" width="60px"></el-table-column>
+        <el-table-column label="销量" prop="sales_volume" width="60px"></el-table-column>
+        <el-table-column label="评分次数"  prop="scoring_times" width="60px"></el-table-column>
+        <el-table-column label="评分得分"  prop="total_score" width="60px"></el-table-column>
+        <el-table-column label="操作" >
         <template slot-scope="scope">
            <!-- 修改按钮 -->
           <el-tooltip effect="dark" content="编辑" placement="top" :enterable="false">
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleClick(scope.row)"></el-button>
-          </el-tooltip>
-            <!-- 删除按钮 -->
-          <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
-          </el-tooltip>         
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="handleClick(scope.row)">编辑菜品</el-button>
+          </el-tooltip>     
           </template> 
         </el-table-column>
       </el-table>
+       <el-pagination layout="total" :total="total">
+      </el-pagination>
     </el-card>
     <!-- 添加用户的对话框 -->
-    <el-dialog title="添加菜品" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
+    <el-dialog title="添加菜品" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed=true">
       <!-- 内容主体区域 -->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
-        <el-form-item label="菜品ID" prop="id">
-          <el-input v-model="addForm.id"></el-input>
-        </el-form-item>
         <el-form-item label="菜品" prop="name">
           <el-input v-model="addForm.name"></el-input>
         </el-form-item>
@@ -81,10 +76,10 @@
       <!-- 底部区域 -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="updatedish">确 定</el-button>
+        <el-button type="primary" @click="adddish">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="更新菜品" :visible.sync="updateDialogVisible" width="50%" @close="updateDialogClosed">
+    <el-dialog title="更新菜品" :visible.sync="updateDialogVisible" width="50%" @close="updateDialogClosed=true">
       <!-- 内容主体区域 -->
       <el-form :model="updateForm"  ref="updateFormRef" label-width="100px">
         <el-form-item label="菜品ID" prop="id">
@@ -130,30 +125,33 @@ export default {
           searchdish:{
             name:''
           },
-                addForm: {
-                      classification:"",
-                      cuisine:"",
-                      image:'',
-                      name:"",
-                      price:'',
-                      restaurant_id:'',
-                      sales_volume:"",
-                      scoring_times:'',
-                      total_score:''
+          total:0,
+          addForm: {
+            classification:"",
+            cuisine:"",
+            image:'',
+            name:"",
+            price:'',
+            restaurant_id:'',
+            sales_volume:"",
+            scoring_times:'',
+            total_score:''
             },
-             updateForm: {
-               classification:"",
-                cuisine:"",
-                id:"",
-                name:"",
-                price:'',
-                restaurant_id:'',
-                sales_volume:"",
-                scoring_times:'',
-                total_score:""
-      },
+           updateForm: {
+            classification:"",
+            cuisine:"",
+            id:"",
+            name:"",
+            price:'',
+            restaurant_id:'',
+            sales_volume:"",
+            scoring_times:'',
+            total_score:""
+          },
             addDialogVisible: false,
             updateDialogVisible: false,
+            addDialogClosed:false,
+            updateDialogClosed:false,
             dishlist:[
                 {
                 classification:"炒菜",
@@ -168,75 +166,74 @@ export default {
                 total_score:12}
             ],
             addFormRules: {
-        name: [
-          { required: true, message: '请输入菜品', trigger: 'blur' },
-          {
-            min: 1,
-            max: 10,
-            message: '用户名的长度在1~10个字符之间',
-            trigger: 'blur'
-          }
-        ],
-        price: [
-          { required: true, message: '请输入价格', trigger: 'blur' },
-          {
-            min: 1,
-            max: 5,
-            message: '用户名的长度在1~5个字符之间',
-            trigger: 'blur'
-          }
-        ],
-        classification: [
-          { required: true, message: '请输入类型', trigger: 'blur' },
-          {  min: 1,
-            max: 10,
-            message: '手机号的长度在1~10个字符之间',
-            trigger: 'blur' }
-        ],
-        cuisine: [
-          { required: true, message: '请输入评价', trigger: 'blur' },
-          { min: 1,
-            max: 20,
-            message: '菜品类别的长度在1~10个字符之间',
-            trigger: 'blur' }
-        ],
-        restaurant_id: [
-          { required: true, message: '请输入餐厅ID', trigger: 'blur' },
-          { min: 1,
-            max: 5,
-            message: '菜品类别的长度在1~5个字符之间',
-            trigger: 'blur' }
-        ],
-        sales_volume: [
-          { required: true, message: '请输入sales_volume', trigger: 'blur' },
-          { min: 1,
-            max: 10,
-            message: '菜品类别的长度在1~10个字符之间',
-            trigger: 'blur' }
-        ],
-        scoring_times: [
-          { required: true, message: '请输入评分次数', trigger: 'blur' },
-          { min: 1,
-            max: 3,
-            message: '菜品类别的长度在1~3个字符之间',
-            trigger: 'blur' }
-        ],
-        total_score: [
-          { required: true, message: '请输入评分得分', trigger: 'blur' },
-          { min: 1,
-            max: 3,
-            message: '菜品类别的长度在1~3个字符之间',
-            trigger: 'blur' }
-        ],
-        classification: [
-          { required: true, message: '请输入菜品类别', trigger: 'blur' },
-          { min: 1,
-            max: 10,
-            message: '菜品类别的长度在1~10个字符之间',
-            trigger: 'blur' }
-        ],
-      },
-      
+              name: [
+                { required: true, message: '请输入菜品', trigger: 'blur' },
+                {
+                  min: 1,
+                  max: 10,
+                  message: '用户名的长度在1~10个字符之间',
+                  trigger: 'blur'
+                }
+              ],
+              price: [
+                { required: true, message: '请输入价格', trigger: 'blur' },
+                {
+                  min: 1,
+                  max: 5,
+                  message: '用户名的长度在1~5个字符之间',
+                  trigger: 'blur'
+                }
+              ],
+              classification: [
+                { required: true, message: '请输入类型', trigger: 'blur' },
+                {  min: 1,
+                  max: 10,
+                  message: '手机号的长度在1~10个字符之间',
+                  trigger: 'blur' }
+              ],
+              cuisine: [
+                { required: true, message: '请输入评价', trigger: 'blur' },
+                { min: 1,
+                  max: 20,
+                  message: '菜品类别的长度在1~10个字符之间',
+                  trigger: 'blur' }
+              ],
+              restaurant_id: [
+                { required: true, message: '请输入餐厅ID', trigger: 'blur' },
+                { min: 1,
+                  max: 5,
+                  message: '菜品类别的长度在1~5个字符之间',
+                  trigger: 'blur' }
+              ],
+              sales_volume: [
+                { required: true, message: '请输入sales_volume', trigger: 'blur' },
+                { min: 1,
+                  max: 10,
+                  message: '菜品类别的长度在1~10个字符之间',
+                  trigger: 'blur' }
+              ],
+              scoring_times: [
+                { required: true, message: '请输入评分次数', trigger: 'blur' },
+                { min: 1,
+                  max: 3,
+                  message: '菜品类别的长度在1~3个字符之间',
+                  trigger: 'blur' }
+              ],
+              total_score: [
+                { required: true, message: '请输入评分得分', trigger: 'blur' },
+                { min: 1,
+                  max: 3,
+                  message: '菜品类别的长度在1~3个字符之间',
+                  trigger: 'blur' }
+              ],
+              classification: [
+                { required: true, message: '请输入菜品类别', trigger: 'blur' },
+                { min: 1,
+                  max: 10,
+                  message: '菜品类别的长度在1~10个字符之间',
+                  trigger: 'blur' }
+              ],
+            }, 
         }
     },
     created(){
@@ -263,7 +260,7 @@ export default {
                 console.log(res);
                   console.log(res)
                  this.dishlist=res.data.data
-                 console.log(this.dishlist)
+                 this.total=Object.values(this.dishlist).length
            })
       },
       adddish(){
