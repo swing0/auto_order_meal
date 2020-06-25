@@ -49,4 +49,12 @@ public interface RestaurantMapper {
     //根据饭店id返回饭店对象
     @Select("SELECT * FROM restaurant WHERE id = #{id}")
     Restaurant selectById(long id);
+
+    //顾客评价饭店时，饭店的评价次数加一
+    @Update("UPDATE restaurant SET scoring_times = scoring_times + 1 WHERE id = #{id}")
+    void addScoring_times(long id);
+
+    //顾客评价饭店时，饭店的增加相应的评分
+    @Update("UPDATE restaurant SET total_score = total_score + #{score} WHERE id = #{id}")
+    void addTotal_score(long id,long score);
 }

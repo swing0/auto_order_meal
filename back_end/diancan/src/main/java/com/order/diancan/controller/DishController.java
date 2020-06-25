@@ -109,6 +109,18 @@ public class DishController {
         }
         return ResultUtil.success("修改成功");
     }
+
+    //对菜品进行评分
+    @RequestMapping(value = "score",method = RequestMethod.POST)
+    public Msg scoreDish(@RequestBody Dish dish){
+        try {
+            dishService.scoreDish(dish);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误:" + e);
+        }
+        return ResultUtil.success("评分成功");
+    }
+
     //查找特定饭店的特定价格推荐
     public List<Integer> selectFromRestaurant(long price, int restaurant_id){
         List<Dish> dishes = dishService.dishesFromRestaurant(restaurant_id);

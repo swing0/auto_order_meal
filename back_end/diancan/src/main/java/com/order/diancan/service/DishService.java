@@ -58,4 +58,10 @@ public class DishService {
     //根据菜品id使菜品的销量加一
     public void saleVolumeAdd(long id){dishMapper.saleVolumeAdd(id);}
 
+    //对菜品进行评分
+    public void scoreDish(Dish dish){
+        dishMapper.addScoring_times(dish.getId());
+        dishMapper.addTotal_score(dish.getId(),dish.getTotal_score());
+    }
+
 }
