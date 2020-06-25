@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.autobook.Bean.Refer_Dish;
 import com.example.autobook.R;
+
+import org.xutils.x;
+
 import java.util.List;
 
 public class ReferAdapter extends BaseAdapter {
@@ -58,7 +61,8 @@ public class ReferAdapter extends BaseAdapter {
             childHolder=(ChildHolder)view.getTag();
         }
         childHolder.checkBox.setChecked(list.get(i).isCheck());
-        childHolder.imageView.setImageBitmap(list.get(i).getImage());
+        x.image().bind(childHolder.imageView,list.get(i).getImage());
+        //childHolder.imageView.setImageBitmap(list.get(i).getImage());
         childHolder.name.setText(list.get(i).getName());
         childHolder.price.setText(String.valueOf(list.get(i).getPrice()));
         childHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

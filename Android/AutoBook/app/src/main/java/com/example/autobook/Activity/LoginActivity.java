@@ -82,12 +82,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             String savePassword=session.getString("password","");
 
             if(saveName.equals(name)&&savePassword.equals(password)){
-                Log.d("本地有缓存","本地有缓存");
+                //Log.d("本地有缓存","本地有缓存");
                 Intent intent=new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }else {
-                Log.d("本地无缓存","本地无缓存，服务器验证");
+                //Log.d("本地无缓存","本地无缓存，服务器验证");
                 //请求服务器验证
                  JSONObject json=new JSONObject();
                  json.put("account",name);
@@ -101,7 +101,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                          @Override
                          public void requestSuccess(String result) {
                              JSONObject msg=JSONObject.parseObject(result);
-                             if(!msg.containsKey("msg")){
+                             if(msg.getString("msg").equals("请求成功")){
                                  if(SaveUserToSession(msg)){
                                      LetsGo();
                                  }else {
@@ -124,7 +124,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * 向本地存储用户数据
      * @return
      */
-    public boolean SaveUserToSession(JSONObject json){
+    public boolean SaveUserToSession(JSONObject msg){
+        JSONObject json=JSONObject.parseObject(msg.getString("data"));
         SharedPreferences.Editor editor=getSharedPreferences("userConfig", PreferenceActivity.MODE_WORLD_READABLE).edit();
         //像SharedPreference中写入数据需要使用Editor
         //类似键值对

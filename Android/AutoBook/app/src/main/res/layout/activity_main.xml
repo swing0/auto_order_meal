@@ -24,7 +24,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/colorText"
-                android:text="天狗II号"
+                android:text="智慧订餐"
                 android:textSize="20dp"
                 android:textStyle="bold" />
             <include  layout="@layout/tabbar" />

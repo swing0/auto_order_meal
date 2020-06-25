@@ -2,14 +2,16 @@ package com.example.autobook.Bean;
 
 import android.graphics.Bitmap;
 
-public class Refer_Dish {
+import java.io.Serializable;
+
+public class Refer_Dish implements Serializable {
     private int id;
     private String name;
     private int price;
-    private Bitmap image;
+    private String image;
     private boolean check;
 
-    public Refer_Dish(int id, String name, int price, Bitmap image, boolean check) {
+    public Refer_Dish(int id, String name, int price, String image, boolean check) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -44,11 +46,11 @@ public class Refer_Dish {
         this.price = price;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

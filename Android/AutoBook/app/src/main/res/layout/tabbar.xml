@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textColor="@color/colorText"
             android:text="@string/tab_text_1"/>
     </LinearLayout>
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorText"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:text="@string/tab_text_2" />
     </LinearLayout>
 

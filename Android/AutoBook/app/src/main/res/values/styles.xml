@@ -20,4 +20,16 @@
         <item name="colorControlNormal">@color/checkbox</item>
         <item name="colorControlActivated">@color/checkbox</item>
     </style>
+
+    <style name="radiobutton">
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
+

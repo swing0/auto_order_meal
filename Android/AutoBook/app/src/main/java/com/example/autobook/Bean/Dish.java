@@ -12,12 +12,12 @@ public class Dish {
     private int total_score;
     private String classification;
     private String cuisine;
-    private Bitmap image;
+    private String image;
 
     public Dish() {
     }
 
-    public Dish(int id, String name, int price, int restaurant_id, int sales_volume, int scoring_times, int total_score, String classification, String cuisine, Bitmap image) {
+    public Dish(int id, String name, int price, int restaurant_id, int sales_volume, int scoring_times, int total_score, String classification, String cuisine, String image) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -102,11 +102,11 @@ public class Dish {
         this.cuisine = cuisine;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

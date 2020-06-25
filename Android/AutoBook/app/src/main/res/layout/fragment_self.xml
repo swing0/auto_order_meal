@@ -1,11 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#E6E6E6"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/button2"
+    <LinearLayout
+        android:background="@drawable/myinfo"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_weight="10"
+            android:padding="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user_logo"/>
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="账户名..."
+                android:textColor="@color/white"
+                android:textSize="17dp" />
+            <LinearLayout
+                android:gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/exitApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/exit_1"
+                    android:layout_marginRight="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/btn_1"
+                    android:layout_weight="1"
+                    android:text="评价"
+                    android:drawableTop="@drawable/radio_button_selector"
+                    style="@style/radiobutton"/>
+                <RadioButton
+                    android:id="@+id/btn_3"
+                    android:layout_weight="1"
+                    android:text="订单"
+                    android:drawableTop="@drawable/radio_button2_selector"
+                    style="@style/radiobutton"/>
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:background="@drawable/self_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="me" />
+        android:layout_weight="100">
+
+        <com.example.autobook.View.ScrollDisabledListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.example.autobook.View.ScrollDisabledListView>
+    </LinearLayout>
 </LinearLayout>
