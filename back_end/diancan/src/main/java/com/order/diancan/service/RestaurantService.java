@@ -44,4 +44,10 @@ public class RestaurantService {
         return restaurantMapper.selectById(restaurant);
     }
 
+    //对饭店进行评分
+    public void scoreRestaurant(Restaurant restaurant){
+        restaurantMapper.addScoring_times(restaurant.getId());
+        restaurantMapper.addTotal_score(restaurant.getId(),restaurant.getTotal_score());
+    }
+
 }

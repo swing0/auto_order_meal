@@ -53,4 +53,12 @@ public interface DishMapper {
     //根据id使菜品销量加一
     @Update("UPDATE dish SET sales_volume = sales_volume + 1 WHERE id = #{id}")
     void saleVolumeAdd(long id);
+
+    //顾客评价菜品时，菜品的评价次数加一
+    @Update("UPDATE dish SET scoring_times = scoring_times + 1 WHERE id = #{id}")
+    void addScoring_times(long id);
+
+    //顾客评价菜品时，菜品的评价增加相应分数
+    @Update("UPDATE dish SET total_score = total_score + #{score} WHERE id = #{id}")
+    void addTotal_score(long id,long score);
 }

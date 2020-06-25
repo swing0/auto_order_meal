@@ -72,4 +72,15 @@ public class RestaurantController {
             return ResultUtil.error(400,"餐厅信息返回失败:" + e);
         }
     }
+
+    //对饭店进行评分
+    @RequestMapping(value = "score",method = RequestMethod.POST)
+    public Msg scoreRestaurant(@RequestBody Restaurant restaurant){
+        try {
+            restaurantService.scoreRestaurant(restaurant);
+        } catch (Exception e) {
+            return ResultUtil.error(400,"未知错误：" + e);
+        }
+        return ResultUtil.success("饭店评分成功");
+    }
 }
