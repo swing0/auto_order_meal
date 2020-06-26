@@ -10,6 +10,12 @@ import androidx.core.app.ActivityCompat;
 import org.xutils.x;
 
 public class MyApplication extends Application {
+    private String IP="192.168.0.104";
+
+    public String getIP() {
+        return IP;
+    }
+
     @Override
     public void onCreate(){
         super.onCreate();

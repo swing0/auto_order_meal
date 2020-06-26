@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.autobook.MyApplication;
 import com.example.autobook.Utils.OkhttpManager;
 import com.example.autobook.R;
 import com.smarttop.library.bean.AdressBean;
@@ -40,12 +41,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private EditText password_1;
     private EditText password_2;
     private Button go_register;
-    final static String url="http://192.168.0.104:8080/user/register";
+    static String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        MyApplication myApplication=new MyApplication();
+        url="http://"+myApplication.getIP()+":8080/user/register";
         Init();
         setData();
     }

@@ -1,6 +1,7 @@
 package com.example.autobook.Adapter;
 
 import android.content.Context;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,14 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.autobook.Bean.OrderDetails;
+import com.example.autobook.Bean.SimpleDish;
 import com.example.autobook.R;
 
 import org.xutils.x;
-
+import android.os.Handler;
 import java.util.List;
+
+import java.util.logging.LogRecord;
 
 public class OrderAdapter extends BaseExpandableListAdapter {
     private List<OrderDetails> data;
@@ -22,6 +26,8 @@ public class OrderAdapter extends BaseExpandableListAdapter {
     private Context context;
     //checkbox监听回调接口
     private onCheckChangeListener onclick_checkbox;
+    private Handler handler;
+
 
     public void setOnclick_checkbox(onCheckChangeListener onclick_checkbox) {
         this.onclick_checkbox = onclick_checkbox;
@@ -30,16 +36,36 @@ public class OrderAdapter extends BaseExpandableListAdapter {
     public OrderAdapter(List<OrderDetails> data, Context context) {
         this.data = data;
         this.context = context;
+        handler = new Handler(){
+
+            @Override
+            public void handleMessage(Message msg) {
+                notifyDataSetChanged();
+                super.handleMessage(msg);
+            }
+        };
+    }
+    public void refresh() {
+        handler.sendMessage(new Message());
     }
 
     @Override
     public int getGroupCount() {
-        return data.size();
+        if(data!=null&&data.size()>0){
+            return data.size();
+        }else {
+            return 0;
+        }
+
     }
 
     @Override
     public int getChildrenCount(int i) {
-        return data.get(i).getSimpleDishes().size();
+        if (data.get(i).getSimpleDishes()!= null && data.get(i).getSimpleDishes().size() > 0) {
+            return data.get(i).getSimpleDishes().size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -69,7 +95,7 @@ public class OrderAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(final int i, boolean b, View view, ViewGroup viewGroup) {
-        GroupView holder = null;
+        GroupView holder ;
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.group_item,viewGroup,false);
             holder  = new GroupView();
@@ -80,10 +106,11 @@ public class OrderAdapter extends BaseExpandableListAdapter {
         }else{
             holder = (GroupView) view.getTag();
         }
-        holder.checkBox.setChecked(data.get(i).isPaid());
-        holder.checkBox.setText(data.get(i).getRestaurant_name());
-        holder.order_price.setText("总计：¥"+String.valueOf(data.get(i).getPrice()));
-        holder.order_time.setText("下单时间："+data.get(i).getDate());
+        OrderDetails a=data.get(i);
+        holder.checkBox.setChecked(a.isPaid());
+        holder.checkBox.setText(a.getRestaurant_name());
+        holder.order_price.setText("总计：¥"+String.valueOf(a.getPrice()));
+        holder.order_time.setText("下单时间："+a.getDate());
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -108,13 +135,14 @@ public class OrderAdapter extends BaseExpandableListAdapter {
         }else{
             holder = (ChildView) view.getTag();
         }
+        SimpleDish a= data.get(i).getSimpleDishes().get(i1);
         holder.checkBoxchild.setChecked(true);
         holder.checkBoxchild.setClickable(false);
         //holder.imageView.setImageResource(R.mipmap.ic_launcher);
         //使用xutil3加载网络图片
-        x.image().bind(holder.imageView,data.get(i).getSimpleDishes().get(i1).getImage());
-        holder.textView_price.setText(String.valueOf(data.get(i).getSimpleDishes().get(i1).getPrice()));
-        holder.textView_name.setText(data.get(i).getSimpleDishes().get(i1).getName());
+        x.image().bind(holder.imageView,a.getImage());
+        holder.textView_price.setText(String.valueOf(a.getPrice()));
+        holder.textView_name.setText(a.getName());
         return view;
     }
     @Override

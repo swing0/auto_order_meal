@@ -1,81 +1,99 @@
 package com.example.autobook.Activity;
 
-import android.os.Build;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.autobook.Fragment.Order_Unpaid_Fragment;
 import com.example.autobook.Fragment.Order_Post_Fragment;
+import com.example.autobook.Fragment.Order_Unpaid_Fragment;
 import com.example.autobook.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class OrderActivity extends FragmentActivity implements View.OnClickListener {
     private TextView back;
-    private List<Fragment> myFragment;
-    private ViewPager viewPager;
-    private FragmentPagerAdapter mAdapter;
+    private int position=0;
+    private List<Fragment> fragment;
+    private FrameLayout frameLayout;
+    private RadioButton rdbtn_1,rdbtn_2;
+    private RadioGroup rgMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        //initview();
-        initPager();
+        initview();
+        initfragment();
+        initListener();
+    }
+    public void initview(){
+        frameLayout=(FrameLayout)findViewById(R.id.fragment);
+        back = (TextView) findViewById(R.id.back);
+        back.setOnClickListener(this);
+        rgMain=(RadioGroup)findViewById(R.id.rgMain);
+        rdbtn_1=(RadioButton)findViewById(R.id.rdbtn_1);
+        rdbtn_2=(RadioButton)findViewById(R.id.rdbtn_2);
+    }
+    private void initfragment(){
+        fragment=new ArrayList<>();
+        fragment.add(new Order_Unpaid_Fragment());
+        fragment.add(new Order_Post_Fragment());
     }
 
-    private void initPager() {
-        //初始化控件
-        viewPager=(ViewPager)findViewById(R.id.view_pager);
-        back = (TextView) findViewById(R.id.back);
-        //设置点击
-        back.setOnClickListener(this);
-        myFragment=new ArrayList<>();
-        myFragment.add(new Order_Unpaid_Fragment());
-        myFragment.add(new Order_Post_Fragment());
-        mAdapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @NonNull
+    private void initListener() {
+        rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public Fragment getItem(int position) {
-                return myFragment.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return myFragment.size();
-            }
-        };
-        viewPager.setAdapter(mAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem());
-            }
-            @Override
-            public void onPageSelected(int position) {
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rdbtn_1:
+                        position=0;
+                        change(position);
+                        break;
+                    case R.id.rdbtn_2:
+                        position=1;
+                        change(position);
+                        break;
+                    default:
+                        position=0;
+                        change(position);
+                        break;
+                }
             }
         });
+
+        rgMain.check(R.id.rdbtn_1);
+    }
+    /*
+    切换页面
+     */
+    public void change(int local){
+        if(local==0){
+            Order_Unpaid_Fragment fragment=new Order_Unpaid_Fragment();
+            Bundle bundle = new Bundle();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment,fragment);
+            fragmentTransaction.commit();
+        }else{
+            Order_Post_Fragment fragment=new Order_Post_Fragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment,fragment);
+            fragmentTransaction.commit();
+        }
     }
 
-    private void initview(){
-        //白底黑字导航 appstyle颜色改为白色
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-//        }
-
-
-    }
 
     @Override
     public void onClick(View view) {

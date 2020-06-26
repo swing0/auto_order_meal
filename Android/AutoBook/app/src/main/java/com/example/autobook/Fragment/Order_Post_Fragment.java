@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baoyz.widget.PullRefreshLayout;
 import com.example.autobook.Adapter.PostAdapter;
 import com.example.autobook.Bean.OrderDetails;
+import com.example.autobook.MyApplication;
 import com.example.autobook.R;
 
 import org.xutils.common.Callback;
@@ -33,8 +34,8 @@ import java.util.List;
 
 
 public class Order_Post_Fragment extends Fragment implements View.OnClickListener {
-    private final static String url="http://192.168.0.104:8080/order/state";
-    private final static String url_pay="http://192.168.0.104:8080/order/updateManyState";
+    static String url;
+    static String url_pay;
     private ExpandableListView postlistview;
     private List<OrderDetails> datas=new ArrayList<>();
     private PostAdapter postAdapter;
@@ -46,45 +47,31 @@ public class Order_Post_Fragment extends Fragment implements View.OnClickListene
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        initdata("3");
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_order__post_, container, false);
         datas.clear();
+        MyApplication myApplication=new MyApplication();
+        url="http://"+myApplication.getIP()+":8080/order/state";
+        url_pay="http://"+myApplication.getIP()+":8080/order/updateManyState";
+        layout=(PullRefreshLayout)view.findViewById(R.id.refresh);
+        hadGet=(Button)view.findViewById(R.id.hadGet);
+        postlistview=(ExpandableListView)view.findViewById(R.id.postlist);
+        hadGet.setOnClickListener(this);
         return view;
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initview();
-        //initlistview();
     }
-
-    public void initview(){
-        layout=(PullRefreshLayout)getActivity().findViewById(R.id.refresh);
-        hadGet=(Button)getActivity().findViewById(R.id.hadGet);
-        postlistview=(ExpandableListView)getActivity().findViewById(R.id.postlist);
-        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initlistview();
-                layout.setRefreshing(false);
-            }
-        });
-        hadGet.setOnClickListener(this);
-        initlistview();
-        postAdapter.setOnclick_checkbox(new PostAdapter.onCheckChangeListener() {
-            @Override
-            public void onGroupClick(int groupID) {
-                datas.get(groupID).setPaid(!datas.get(groupID).isPaid());
-            }
-        });
-    }
-    public void initlistview(){
-        initdata("3");
-        postAdapter=new PostAdapter(datas,getContext());
-        postlistview.setAdapter(postAdapter);
-    }
-
+    /*
+    请求服务器
+     */
     public void initdata(String state){
         datas.clear();
         //XUtil3网络请求
@@ -134,10 +121,16 @@ public class Order_Post_Fragment extends Fragment implements View.OnClickListene
                     }
                     datas.add(orderDetails);
                 }
-                Log.d("数据",String.valueOf(datas.size()));
+                postAdapter=new PostAdapter(datas,getContext());
+                postlistview.setAdapter(postAdapter);
+                postAdapter.setOnclick_checkbox(new PostAdapter.onCheckChangeListener() {
+                    @Override
+                    public void onGroupClick(int groupID) {
+                        datas.get(groupID).setPaid(!datas.get(groupID).isPaid());
+                    }
+                });
             }else{
                 postlistview.setBackgroundResource(R.drawable.no_post_order);
-                //Toast.makeText(getActivity(),jsonObject.getString("msg"),Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -198,7 +191,7 @@ public class Order_Post_Fragment extends Fragment implements View.OnClickListene
             JSONObject json=JSONObject.parseObject(data);
             if(json.getString("data").equals("订单状态修改成功")&&json.getString("msg").equals("请求成功")){
                 Toast.makeText(getActivity(),"已确认收到",Toast.LENGTH_SHORT).show();
-                initlistview();
+                initdata("3");
             }
         }
     };

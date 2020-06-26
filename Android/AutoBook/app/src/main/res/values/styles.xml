@@ -31,5 +31,21 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="bottom_tag_style" >
+        <!-- Customize your theme here. -->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/bottom_tab_textcolor_selector</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#FF0000</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
 </resources>
 

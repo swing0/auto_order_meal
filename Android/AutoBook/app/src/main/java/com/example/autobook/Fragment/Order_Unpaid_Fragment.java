@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baoyz.widget.PullRefreshLayout;
 import com.example.autobook.Adapter.OrderAdapter;
 import com.example.autobook.Bean.OrderDetails;
+import com.example.autobook.MyApplication;
 import com.example.autobook.R;
 import com.example.autobook.Utils.OkhttpManager;
 import com.squareup.okhttp.OkHttpClient;
@@ -36,67 +37,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListener /*implements View.OnClickListener */{
+public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListener{
 
     private PullRefreshLayout layout;
     private OrderAdapter orderAdapter;
     private ExpandableListView OrderUnpaidList;
     private String customer_id;
     private Button pay;
-    private final static String url="http://192.168.0.104:8080/order/state";
-    private final static String url_pay="http://192.168.0.104:8080/order/updateManyState";
+    static String url;
+    static String url_pay;
     private List<OrderDetails> data=new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        initdata("1");
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_order__unpaid_, container, false);
         //视图注入框架
         data.clear();
-        x.view().inject(Order_Unpaid_Fragment.class,view);
+        MyApplication myApplication=new MyApplication();
+        url="http://"+myApplication.getIP()+":8080/order/state";
+        url_pay="http://"+myApplication.getIP()+":8080/order/updateManyState";
+        OrderUnpaidList=(ExpandableListView)view.findViewById(R.id.OrderUnpaidList__);
+        layout=(PullRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        pay=(Button)view.findViewById(R.id.to_paid);
+        pay.setOnClickListener(this);
         return view;
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initview();
-    }
-    public void initview(){
-        layout=(PullRefreshLayout)getActivity().findViewById(R.id.swipeRefreshLayout);
-        OrderUnpaidList=(ExpandableListView)getActivity().findViewById(R.id.OrderUnpaidList);
-        pay=(Button)getActivity().findViewById(R.id.to_paid);
         SharedPreferences sp = getActivity().getSharedPreferences("userConfig", PreferenceActivity.MODE_PRIVATE);
         customer_id=sp.getString("id","");
-        //请求数据，初始化list
-        initExpandableListView();
-        orderAdapter.setOnclick_checkbox(new OrderAdapter.onCheckChangeListener() {
-            @Override
-            public void onGroupClick(int groupID) {
-                data.get(groupID).setPaid(!data.get(groupID).isPaid());
-            }
-        });
-        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initExpandableListView();
-                layout.setRefreshing(false);
-            }
-        });
-        pay.setOnClickListener(this);
     }
-    //初始化列表
-    public void initExpandableListView(){
-        initdata("1");
-        orderAdapter=new OrderAdapter(data,getContext());
-        OrderUnpaidList.setAdapter(orderAdapter);
 
-    }
     /*
       请求数据
      */
@@ -106,9 +87,6 @@ public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListe
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("id",customer_id);
         jsonObject.put("state",state);
-//        RequestParams params=new RequestParams(url);
-//        params.setAsJsonContent(true);
-//        params.setBodyContent(jsonObject.toString());
         try {
             OkhttpManager.doPostHttpRequest(url, jsonObject.toString(), new OkhttpManager.DataCallBack() {
                 @Override
@@ -125,30 +103,8 @@ public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Message message = new Message();
-                message.obj = result;
-                mHandler.sendMessage(message);
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-            }
 
-            @Override
-            public void onCancelled(CancelledException cex) {
-                cex.printStackTrace();
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });*/
     }
 
     public Handler mHandler=new Handler(){
@@ -156,7 +112,7 @@ public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListe
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             String result=(String)msg.obj;
-            //Log.d("data",result);
+            Log.d("订单数据",result);
             JSONObject jsonObject=JSONObject.parseObject(result);
             if(jsonObject.getString("msg").equals("请求成功")){
                 JSONArray array=JSONArray.parseArray(jsonObject.getString("data"));
@@ -168,10 +124,18 @@ public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListe
                     }
                     data.add(orderDetails);
                 }
-                //Log.d("数据",String.valueOf(data.size()));
+                Log.d("表格数据",String.valueOf(data.size()));
+                orderAdapter=new OrderAdapter(data,getContext());
+                OrderUnpaidList.setAdapter(orderAdapter);
+                Log.d("MARK","137行被执行");
+                orderAdapter.setOnclick_checkbox(new OrderAdapter.onCheckChangeListener() {
+                    @Override
+                    public void onGroupClick(int groupID) {
+                        data.get(groupID).setPaid(!data.get(groupID).isPaid());
+                    }
+                });
             }else{
                 OrderUnpaidList.setBackgroundResource(R.drawable.image_no);
-                //Toast.makeText(getActivity(),jsonObject.getString("msg"),Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -231,7 +195,7 @@ public class Order_Unpaid_Fragment extends Fragment implements View.OnClickListe
             JSONObject json=JSONObject.parseObject(data);
             if(json.getString("data").equals("订单状态修改成功")&&json.getString("msg").equals("请求成功")){
                 Toast.makeText(getContext(),"付款成功！",Toast.LENGTH_SHORT).show();
-                initExpandableListView();
+                initdata("1");
             }
         }
     };

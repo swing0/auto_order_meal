@@ -36,7 +36,6 @@
                 <action android:name="com.netease.push.action.client.MESSAGE" />
                 <action android:name="com.netease.push.action.client.NEWID" />
                 <action android:name="com.netease.push.action.client.METHOD" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

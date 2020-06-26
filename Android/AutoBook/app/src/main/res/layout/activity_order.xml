@@ -41,37 +41,28 @@
         android:layout_height="3dp"
         android:background="#EBEBEB"/>
     <RadioGroup
+        android:id="@+id/rgMain"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/rdbtn_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:gravity="center"
-            android:text="未付款"
-            android:textColor="#777777"
-            android:textSize="17dp" />
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_unpaid_drawable_selector"
+            android:text="未付款" />
         <RadioButton
             android:id="@+id/rdbtn_2"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="配送状态"
-            android:textColor="#777777"
-            android:textSize="17dp"
-            android:button="@null"/>
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_unpost_drawable_selector"
+            android:text="配送状态" />
     </RadioGroup>
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="#EBEBEB" />
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </androidx.viewpager.widget.ViewPager>
+    </FrameLayout>
 </LinearLayout>

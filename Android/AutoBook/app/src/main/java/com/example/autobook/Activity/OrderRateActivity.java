@@ -21,6 +21,7 @@ import com.example.autobook.Adapter.ReferAdapter;
 import com.example.autobook.Bean.OrderDetails;
 import com.example.autobook.Bean.Refer_Dish;
 import com.example.autobook.Bean.SimpleDish;
+import com.example.autobook.MyApplication;
 import com.example.autobook.R;
 import com.example.autobook.Utils.MyDialog;
 import com.example.autobook.Utils.OkhttpManager;
@@ -45,20 +46,23 @@ public class OrderRateActivity extends Activity implements View.OnClickListener 
     private String select_dish_id=null;
     private String select_resturant_id=null;
     private List<Refer_Dish> data=new ArrayList<>();
-    private final static String url1="http://192.168.0.104:8080/dish/score";
-    private final static String url2="http://192.168.0.104:8080/restaurant/score";
+    static String url1;
+    static String url2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_rate);
+        MyApplication my=new MyApplication();
+        url1="http://"+my.getIP()+":8080/dish/score";
+        url2="http://"+my.getIP()+":8080/restaurant/score";
         resturant=(TextView)findViewById(R.id.resturant);
         commit=(Button)findViewById(R.id.commit);
         commit.setOnClickListener(this);
         rating_resturant=(RatingBar)findViewById(R.id.rating_resturant);
         listView=(ListView)findViewById(R.id.dish);
         setOrderDetails();
-        resturant.setText(orderDetails.getRestaurant_name());
+        resturant.setText("感谢您在"+orderDetails.getRestaurant_name()+"用餐");
         referAdapter=new ReferAdapter(getApplicationContext(),data);
         listView.setAdapter(referAdapter);
         View dialog_view = getLayoutInflater().inflate(R.layout.dialog, null);

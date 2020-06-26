@@ -23,7 +23,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:numStars="5"
-            android:rating="5" />
+            android:rating="5"
+            android:theme="@style/RatingBar"/>
 
         <View
             android:layout_width="match_parent"

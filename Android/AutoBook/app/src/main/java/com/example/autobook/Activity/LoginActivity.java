@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.autobook.MainActivity;
+import com.example.autobook.MyApplication;
 import com.example.autobook.Utils.OkhttpManager;
 import com.example.autobook.R;
 import com.squareup.okhttp.Request;
@@ -27,11 +28,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Button m_login;
     private TextView go_register;
     private TextView forget_password;
-    final static String url="http://192.168.0.104:8080/user/login";
+    static String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_register);
+        MyApplication my=new MyApplication();
+        url="http://"+my.getIP()+":8080/user/login";
         Init();
     }
 
@@ -126,7 +129,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      */
     public boolean SaveUserToSession(JSONObject msg){
         JSONObject json=JSONObject.parseObject(msg.getString("data"));
-        SharedPreferences.Editor editor=getSharedPreferences("userConfig", PreferenceActivity.MODE_WORLD_READABLE).edit();
+        SharedPreferences.Editor editor=getSharedPreferences("userConfig", PreferenceActivity.MODE_PRIVATE).edit();
         //像SharedPreference中写入数据需要使用Editor
         //类似键值对
         editor.putString("username", json.getString("account"));

@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.example.autobook.Adapter.OrderAdapter;
 import com.example.autobook.Adapter.PostAdapter;
 import com.example.autobook.Bean.OrderDetails;
+import com.example.autobook.MyApplication;
 import com.example.autobook.R;
 
 import org.json.JSONException;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RatingActivity extends Activity {
-    private final static String url="http://192.168.0.104:8080/order/state";
+    static String url;
 
     private ExpandableListView expandableListView;
     private OrderAdapter postAdapter;
@@ -36,21 +37,10 @@ public class RatingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
+        MyApplication myApplication=new MyApplication();
+        url="http://"+myApplication.getIP()+":8080/order/state";
         expandableListView=(ExpandableListView)findViewById(R.id.pingjia_listview);
         initdata("4");
-        postAdapter=new OrderAdapter(detailsList,getApplicationContext());
-        expandableListView.setAdapter(postAdapter);
-        postAdapter.setOnclick_checkbox(new OrderAdapter.onCheckChangeListener() {
-            @Override
-            public void onGroupClick(int groupID) {
-                OrderDetails orderDetails=detailsList.get(groupID);
-                Intent intent=new Intent(RatingActivity.this,OrderRateActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("DATA",orderDetails);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
     }
 
     public void initdata(String state){
@@ -106,6 +96,19 @@ public class RatingActivity extends Activity {
                     detailsList.add(orderDetails);
                 }
                 Log.d("数据",String.valueOf(detailsList.size()));
+                postAdapter=new OrderAdapter(detailsList,getApplicationContext());
+                expandableListView.setAdapter(postAdapter);
+                postAdapter.setOnclick_checkbox(new OrderAdapter.onCheckChangeListener() {
+                    @Override
+                    public void onGroupClick(int groupID) {
+                        OrderDetails orderDetails=detailsList.get(groupID);
+                        Intent intent=new Intent(RatingActivity.this,OrderRateActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable("DATA",orderDetails);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }else{
                 expandableListView.setBackgroundResource(R.drawable.image_no1);
                 //Toast.makeText(getActivity(),jsonObject.getString("msg"),Toast.LENGTH_SHORT).show();

@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.autobook.Activity.ResturantActivity;
 import com.example.autobook.Adapter.ResAdapter;
 import com.example.autobook.Bean.Restaurant;
+import com.example.autobook.MyApplication;
 import com.example.autobook.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.okhttp.OkHttpClient;
@@ -43,7 +44,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private ListView listView;
     private FloatingActionButton select;
-    final static String url="http://192.168.0.104:8080/restaurant/info";
+    private ResAdapter resAdapter;
+    static String url;
     public List<Restaurant> restaurantList=new ArrayList<>();
     //String data=null;
     private OkHttpClient client=new OkHttpClient();
@@ -53,6 +55,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_main, container, false);
         x.view().inject(this,view);
+        MyApplication myApplication=new MyApplication();
+        url="http://"+myApplication.getIP()+":8080/restaurant/info";
+        listView=(ListView) view.findViewById(R.id.resturant);
+        select=(FloatingActionButton)view.findViewById(R.id.floatButton);
         return view;
 
     }
@@ -64,13 +70,33 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         initOrder();//数据源
         //Log.d("data",data);
         //initlist();//初始化数据list
-        listView.setAdapter(new ResAdapter(getActivity(),restaurantList));
+        doMyStuff();
     }
+
+    private void doMyStuff() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                resAdapter=new ResAdapter(getActivity(),restaurantList);
+                listView.setAdapter(resAdapter);
+                andler.sendEmptyMessage(0);
+
+            }
+        }).start();
+    }
+
+    private Handler andler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 0) {
+                resAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
 
     //初始化控件
     public void initView(){
-        listView=getActivity().findViewById(R.id.resturant);
-        select=getActivity().findViewById(R.id.floatButton);
+
         select.setOnClickListener(this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -115,7 +141,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
          public void handleMessage(Message msg) {
              super.handleMessage(msg);
              Bundle m=msg.getData();
-             Log.d("DATA",m.getString("DATA"));
+             //Log.d("DATA",m.getString("DATA"));
              //data=m.getString("DATA");
              initlist(m.getString("DATA"));
          }

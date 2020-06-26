@@ -6,6 +6,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Activity.OrderRateActivity">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zan"/>
+    </RelativeLayout>
     <TextView
         android:gravity="center"
         android:layout_marginTop="30dp"
@@ -30,16 +38,29 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="乾元酒店"
-                android:textSize="15dp" />
-
-            <RatingBar
-                android:id="@+id/rating_resturant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+            <LinearLayout
+                android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:numStars="5"
-                android:rating="5" />
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请对餐馆评分："
+                    android:textSize="20dp"/>
+                <RatingBar
+                    android:id="@+id/rating_resturant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:theme="@style/RatingBar" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/commit"
                 android:layout_width="wrap_content"
@@ -50,20 +71,23 @@
         </LinearLayout>
         <LinearLayout
             android:layout_weight="3"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="菜品"
-                android:textSize="15dp"
+                android:text="菜品评分"
+                android:textSize="20dp"
                 android:layout_gravity="center"/>
             <ListView
+                android:layout_margin="20dp"
                 android:id="@+id/dish"
+                android:dividerHeight="5dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>
         </LinearLayout>

@@ -44,6 +44,7 @@ import com.example.autobook.Bean.Dish;
 import com.example.autobook.Bean.Refer_Dish;
 import com.example.autobook.Bean.Restaurant;
 import com.example.autobook.MainActivity;
+import com.example.autobook.MyApplication;
 import com.example.autobook.R;
 import com.example.autobook.Utils.OkhttpManager;
 import com.squareup.okhttp.OkHttpClient;
@@ -88,9 +89,9 @@ public class ResturantActivity extends Activity implements View.OnClickListener 
     //餐厅适配器数据源
     public List<Dish> DishList = new ArrayList<>();
     //服务器端口地址
-    final static String url1 = "http://192.168.0.104:8080/dish/restaurant_id/";
-    final static String url_order = "http://192.168.0.104:8080/order/register";
-    String url2 = null;
+    String url1 ;
+    String url_order;
+    String url2;
     //okhttp请求器
     private OkHttpClient client = new OkHttpClient();
     //餐厅推荐菜品适配器数据源
@@ -103,6 +104,9 @@ public class ResturantActivity extends Activity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resturant);
+        MyApplication myApplication=new MyApplication();
+        url1="http://"+myApplication.getIP()+":8080/dish/restaurant_id/";
+        url_order = "http://"+myApplication.getIP()+":8080/order/register";
         GetSelectInfo();
         initView();
         InitDishData();
@@ -178,7 +182,8 @@ public class ResturantActivity extends Activity implements View.OnClickListener 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         Restaurant_id = bundle.getInt("Rest_id");
-        url2="http://192.168.0.104:8080/dish/"+Restaurant_id+"/";
+        MyApplication myApplication=new MyApplication();
+        url2="http://"+myApplication.getIP()+":8080/dish/"+Restaurant_id+"/";
         restaurant = (Restaurant) bundle.getSerializable("Restaurant");
     }
 
@@ -259,6 +264,20 @@ public class ResturantActivity extends Activity implements View.OnClickListener 
             //k.setImage(getBitmapFromLocal(String.valueOf(Restaurant_id)+"_"+String.valueOf(k.getId())));
             ReferDishList.add(k);
         }
+        referAdapter = new ReferAdapter(getApplicationContext(), ReferDishList);
+        //referAdapter.notifyDataSetChanged();
+        expandableListView.setAdapter(referAdapter);
+        referAdapter.notifyDataSetChanged();
+        referAdapter.setCheck(new ReferAdapter.oncheck() {
+            @Override
+            public void Checkedchanged(int position, boolean ischecked) {
+                ReferDishList.get(position).setCheck(ischecked);
+                referAdapter.notifyDataSetChanged();
+                changeAllPrice();
+                showToast();
+            }
+        });
+        referAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -358,20 +377,7 @@ public class ResturantActivity extends Activity implements View.OnClickListener 
                 main_check_all.setChecked(false);
                 Allprice.setText(String.valueOf(0));
                 InitReferDishData();
-                referAdapter = new ReferAdapter(getApplicationContext(), ReferDishList);
-                //referAdapter.notifyDataSetChanged();
-                expandableListView.setAdapter(referAdapter);
-                referAdapter.notifyDataSetChanged();
-                referAdapter.setCheck(new ReferAdapter.oncheck() {
-                    @Override
-                    public void Checkedchanged(int position, boolean ischecked) {
-                        ReferDishList.get(position).setCheck(ischecked);
-                        referAdapter.notifyDataSetChanged();
-                        changeAllPrice();
-                        showToast();
-                    }
-                });
-                referAdapter.notifyDataSetChanged();
+
                 break;
             case R.id.main_check_all:
                 if(ReferDishList.size()!=0){
