@@ -6,8 +6,7 @@ import Register from './components/Register.vue'
 import Welcome from './components/Welcome.vue'
 import Shangjia from './components/Shangjia.vue'
 import Order from './components/Order.vue'
-import Submit from './components/Submit'
-import Submit_order from './components/Submit_order'
+import Dish from './components/Dish'
 
 Vue.use(Router)
 export default new Router({
@@ -22,11 +21,11 @@ export default new Router({
         { path: '/welcome', component: Welcome },
         { path: '/shangjia', component: Shangjia },
         { path: '/order', component: Order },
-        { path: '/submit', component: Submit }
+        { path: '/dish', component: Dish },
        
     ]},
     { path: '/Register', component: Register },
-    { path: '/Submit_order', component: Submit_order },
+    
     
   ]
 })

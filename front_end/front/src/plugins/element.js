@@ -27,10 +27,9 @@ import {
   Select,
   Tree,
   Dropdown,
-  MessageBox,
 } from 'element-ui'
 
-Vue.use(MessageBox)
+
 Vue.use(Option)
 Vue.use(Dropdown)
 Vue.use(Tree)
@@ -58,6 +57,5 @@ Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.prototype.$message = Message
-Vue.prototype.$prompt = MessageBox.prompt
 
-Vue.use(Message)
+Vue.component(Message.name, Message)

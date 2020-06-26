@@ -3,8 +3,8 @@
     <!-- 头部区域 -->
     <el-header>
       <div>
-        <img src="../assets/heima.png" alt="">
-        <span>自主订单系统</span>
+        <!-- <img src="../assets/heima.png" alt=""> -->
+        <span>自主订单后台管理</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
@@ -12,9 +12,9 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
-        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <div class="toggle-button">菜单栏</div>
         <!-- 侧边栏菜单区域 -->
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="$router.path">
+        <el-menu background-color="#3C3C3C" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="$router.path">
           <!-- 一级菜单 -->
           <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id">
             <!-- 一级菜单的模板区域 -->
@@ -42,20 +42,19 @@ export default {
     return {
       // 左侧菜单数据
       menulist: [
-          {id:0,name:'用户点餐',path:'welcome'},
-          {id:1,name:'商家列表',path:'shangjia'},
-          {id:2,name:'订单管理',path:'order'}
+          {id:0,name:'用户管理',path:'welcome'},
+          {id:1,name:'商家管理',path:'shangjia'},
+           {id:2,name:'菜品管理',path:'dish'},
+          {id:3,name:'订单管理',path:'order'},
+         
       ],
       
-    //   shangjia_name:[
-    //           { shangjia_id:001,shangjia_name_name:"'商家1'"},
-    //           { shangjia_id:002,shangjia_name_name:"'商家2'"},
-    //           { shangjia_id:003,shangjia_name_name:"'商家3'"}
-    //   ],
+  
       iconsObj: {
         '0': 'iconfont icon-user',
         '1': 'iconfont icon-shangpin',
-        '2': 'iconfont icon-danju'
+        '2': 'iconfont icon-tijikongjian',
+        '3': 'iconfont icon-danju',
       },
       // 是否折叠
       isCollapse: false,
@@ -81,7 +80,7 @@ export default {
   height: 100%;
 }
 .el-header {
-  background-color: #373d41;
+  background-color: #3C3C3C;
   display: flex;
   justify-content: space-between;
   padding-left: 0;
@@ -98,7 +97,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #333744;
+  background-color: #3C3C3C;
   .el-menu {
     border-right: none;
   }
@@ -114,7 +113,7 @@ export default {
 
 .toggle-button {
   background-color: #4a5064;
-  font-size: 10px;
+  font-size: 15px;
   line-height: 24px;
   color: #fff;
   text-align: center;
