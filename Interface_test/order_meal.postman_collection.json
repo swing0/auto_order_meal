@@ -1,0 +1,744 @@
+{
+	"info": {
+		"_postman_id": "e27f7d37-217b-48bf-afc3-f83b606f1650",
+		"name": "order_meal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/user/test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account\":\"swing\",\n\t\"password\":\"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nickname\":\"秋千\",\n\t\"account\":\"swing\",\n\t\"password\":\"123456\",\n\t\"phone\":\"18888888888\",\n\t\"address\":\"河南省洛阳市河南科技大学\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/allUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/allUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"allUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"2\",\n\t\"nickname\":\"秋千\",\n\t\"account\":\"swing\",\n\t\"password\":\"123456\",\n\t\"phone\":\"18888888888\",\n\t\"address\":\"河南省洛阳市河南科技大学\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/infoByAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account\":\"swing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/infoByAccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"infoByAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/admin/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"account\":\"饭店1的狗管理\",\r\n\t\"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/admin/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"account\":\"饭店1的狗管理\",\r\n\t\"password\":\"123456\",\r\n    \"restaurant_id\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/restaurant/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"嘉园大酒店\",\n\t\"address\":\"河南省洛阳市河南科技大学\",\n\t\"phone\":\"16666666668\",\n\t\"classification\":\"学校餐馆\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurant/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/restaurant/info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurant/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/restaurant/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"15\",\n\t\"name\":\"嘉园大酒店\",\n\t\"address\":\"河南省洛阳市河南科技大学\",\n\t\"phone\":\"16666666668\",\n\t\"classification\":\"学校餐馆\",\n\t\"scoring_times\":\"20\",\n\t\"total_score\":\"120\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurant/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/restaurant/infoByName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"嘉园大酒店\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurant/infoByName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant",
+						"infoByName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/restaurant/score",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"1\",\n\t\"total_score\":\"4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurant/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurant",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/restaurant_id/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dish/restaurant_id/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"restaurant_id",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/4/100",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dish/4/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"4",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"西红柿炒鸡蛋\",\n\t\"classification\":\"素菜\",\n\t\"cuisine\":\"家常菜\",\n\t\"sales_volume\":\"200\",\n\t\"price\":\"15\",\n\t\"scoring_times\":\"20\",\n\t\"total_score\":\"90\",\n\t\"restaurant_id\":\"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dish/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"10\",\n\t\"name\":\"西红柿炒鸡蛋\",\n\t\"classification\":\"素菜\",\n\t\"cuisine\":\"家常菜\",\n\t\"sales_volume\":\"200\",\n\t\"price\":\"15\",\n\t\"scoring_times\":\"20\",\n\t\"total_score\":\"90\",\n\t\"restaurant_id\":\"2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dish/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/allDishes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dish/allDishes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"allDishes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/infoByName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"西红柿炒鸡蛋\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dish/infoByName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"infoByName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/dish/score",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"1\",\n\t\"total_score\":\"4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dish/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dish",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"price\":\"300\",\r\n\t\"date\":\"\",\r\n    \"state\":\"1\",\r\n\t\"dish_id_list\":\"1,6\",\r\n\t\"restaurant_id\":\"1\",\r\n\t\"customer_id\":\"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/updateState",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"4\",\n\t\"state\":\"2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/updateState",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"updateState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/state",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"1\",\n\t\"state\":\"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/allOrder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/allOrder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"allOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/updateManyState",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"state\":1,\n\t\"data\":[\n\t\t{\"id\":2},\n\t\t{\"id\":3}\n\t]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/updateManyState",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"updateManyState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/updateOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":\"1\",\r\n\t\"price\":\"300\",\r\n\t\"date\":\"\",\r\n    \"state\":\"1\",\r\n\t\"dish_id_list\":\"1,6\",\r\n\t\"restaurant_id\":\"1\",\r\n\t\"customer_id\":\"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/updateOrder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"updateOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/order/infoById",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/infoById",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"infoById"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
