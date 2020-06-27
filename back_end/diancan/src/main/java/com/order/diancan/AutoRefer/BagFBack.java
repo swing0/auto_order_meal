@@ -32,21 +32,21 @@ public class BagFBack {
         this.MAX= MAX;
         // 对数组进行价值排序,从大到小
         Arrays.sort(myelements);
-        //System.out.println("菜品ID"+"   "+"菜品评分" + "	" + "菜品价格");
-//        for (int i = 0; i < myelements.length; i++) {
-//            System.out.print(Integer.toString(myelements[i].id)+"  "+myelements[i].score + "	" + myelements[i].price);
-//            System.out.println();
-//        }
+        System.out.println("菜品ID"+"   "+"菜品评分" + "	    " + "菜品价格" + "	    " + "性价比");
+        for (int i = 0; i < myelements.length; i++) {
+            System.out.print(Integer.toString(myelements[i].id)+"  		"+myelements[i].score + "			" + myelements[i].price + "	    	"+ myelements[i].score/myelements[i].price);
+            System.out.println();
+        }
     }
 
     //开始回溯
     public void traceBack(int t) {
         if (t >= myelements.length) {
             // 已经遍历到最下一层，也就是最后一个
-            //System.out.println("已找到推荐方案");
+            System.out.println("已找到推荐方案");
             betterValue = nowScore;
-            //System.out.println("最高评分： " + betterValue);
-            //output(myelements);
+            System.out.println("最高评分： " + betterValue);
+            output(myelements);
             return;
         }
         // 首先进入走左子树
@@ -69,16 +69,19 @@ public class BagFBack {
 
     // 输出方法，用于输出
     public void output(MyElement[] myelements2) {
-        //System.out.println("建议推荐的菜品方案如下：");
+        System.out.println("建议推荐的菜品方案如下：");
+        float allPrice = 0;
         for (int i = 0; i < myelements2.length; i++) {
             if(nowPrice<=MAX){
                 if (myelements2[i].take) {
                     System.out.println(Integer.toString(myelements2[i].id)+"：   "+myelements2[i].price + "元");
+                    allPrice = allPrice + myelements2[i].price;
                 }
             }else {
                 System.out.println("error");
             }
         }
+        System.out.println("总价：" + allPrice + "元");
     }
 
     /**
@@ -105,15 +108,17 @@ public class BagFBack {
         //测试菜品的id
         int[] id={1,2,3,4,5,6,7,8};
         //测试菜品的单价
-        float[] price = {3.6f,5.6f,2.6f,5.6f,3.6f,2.3f, 3.4f, 2.5f };
+        float[] price = {4.2f,3.8f,6.2f,7.7f,2.5f,5.7f, 3.4f, 6f };
         //测试菜品的评分
-        float[] score = {10f,3.8f,6.2f,7.7f,4.8f,4.5f, 3f, 2.5f };
+        float[] score = {7.4f,6.9f,4.1f,7.7f,4.8f,3.2f, 3f, 7.4f };
         //顾客可接受的最大花费
-        float max_price =  13.6f;
+        float max_price =  20f;
+        System.out.println("最高花费：" + max_price);
         //创建类实例，初始化
         BagFBack bagFBack = new BagFBack(id,price, score, max_price);
         // 从第0层开始回溯，找方案
         bagFBack.traceBack(0);
+
         /***至此回溯法结束***/
 
 
